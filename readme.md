@@ -14,6 +14,8 @@ Dodatkowo komentarze zawierające spoilery nie będą widoczne jawnie, ale dopie
 
 Nowo zarejestrowani użytkownicy będą musieli aktywować swoje konto przechodząc link e-mail wysłany na maila.
 
+Autoryzacja odbywać się będzie z wykorzystaniem tokenów JWT (nie uwzględnionych na poniższym diagramie).
+
 
 ## Diagram ERD
 
