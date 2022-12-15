@@ -1,0 +1,14 @@
+.accountControlsContainer {
+    display: flex;
+    align-items: stretch;
+    height: 43px;
+}
+
+.accountBtn {
+    background-color: var(--bs-light);
+    border: 1px solid var(--bs-light);
+}
+
+.accountBtn:hover {
+    border: 1px solid var(--bs-light);
+}

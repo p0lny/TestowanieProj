@@ -1,0 +1,15 @@
+.searchbarContainer {
+    background-color: var(--bs-light);
+    display: flex;
+    border-style: solid;
+    border-color: var(--bs-light);
+    border-width: 1px;
+}
+
+.searchBtn {
+    border-radius: 0 5px 5px 0;
+}
+
+.searchInput {
+    border-radius: 5px 0 0 5px;
+}
