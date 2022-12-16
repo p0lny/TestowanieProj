@@ -1,0 +1,27 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vh;
+}
+
+.movieDetailsContainer {
+    background-color: var(--bs-light);
+    padding: 15px;
+    width: 85vw;
+    height: auto;
+    border-radius: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.textArea {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.movieDetailsImage {
+    max-width: 25%;
+    min-height: 200px;
+    max-height: 35%;
+}

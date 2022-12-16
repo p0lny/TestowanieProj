@@ -1,0 +1,8 @@
+.cardComponent {
+    cursor: pointer;
+    max-width: 540px;
+}
+
+.cardImage {
+    height: 100%;
+}
