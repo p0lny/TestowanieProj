@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 import './Searchbar.css'
+import {getMovies} from '../../API/Server.js'
 
 export default function Searchbar ({type, id, name, width}) {
 
@@ -13,6 +14,7 @@ export default function Searchbar ({type, id, name, width}) {
     const search = () => {
         // api call for search movies
         console.log(`search movies by phrase: '${phrase}'`)
+        getMovies(phrase)
     }
 
     return (

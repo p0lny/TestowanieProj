@@ -2,13 +2,27 @@
     display: flex;
     align-items: stretch;
     height: 43px;
+    margin-top: 0.5vh;
 }
 
 .accountBtn {
-    background-color: var(--bs-light);
+    background-color: var(--bs-primary);
     border: 1px solid var(--bs-light);
+    color: var(--bs-light);
 }
 
 .accountBtn:hover {
     border: 1px solid var(--bs-light);
+    background-color: var(--bs-light);
+    color: var(--bs-primary);
+}
+
+.noRoundLeft {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.noRoundRight {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }

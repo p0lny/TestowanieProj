@@ -4,10 +4,14 @@
     display: flex;
     padding: 1% 3% 3% 3%;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 500;
 }
 
 #appname {
     font-size: 4.5vh;
     font-family: Euphorigenic, serif;
     color: var(--bs-light);
+    cursor: pointer;
 }
