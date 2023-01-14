@@ -26,6 +26,7 @@ export default function Searchbar ({type, id, name, width}) {
                    id={'searchbar_' + id}
                    name={name}
                    value={phrase}
+                   placeholder={"Search for..."}
                    onChange={onSearchbarInput}
                    className={"form-control searchInput"}
             />

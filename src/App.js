@@ -6,6 +6,7 @@ import RegisterPage from "./components/RegisterPage/RegisterPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import MainPage from "./components/MainPage/MainPage";
 import MovieDetails from "./components/Utils/MovieDetails/MovieDetails";
+import ConfirmRegistration from "./components/ConfirmRegistration/ConfirmRegistration";
 
 function App() {
 
@@ -23,6 +24,9 @@ function App() {
                         </Route>
                         <Route path={"/movie/:id"}>
                             <MovieDetails/>
+                        </Route>
+                        <Route path={"/activate/:id"}>
+                            <ConfirmRegistration/>
                         </Route>
                         <Route path={"/"}>
                             <MainPage/>

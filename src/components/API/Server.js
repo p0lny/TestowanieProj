@@ -1,11 +1,16 @@
 import axios from "axios";
 import {config} from "../../config";
 
+// mock data
+import {jwt, movies} from "./mockdata";
+
 const endpoint = config.server + ":" + config.port
 
 /** ACCOUNT REQUESTS **/
 
 export const signIn = async (data) => {
+    console.log(data)
+    return jwt
     await axios.post(`${endpoint}/api/account/login`, data).then((response) => {
         console.log(response)
         return response
@@ -15,6 +20,8 @@ export const signIn = async (data) => {
 }
 
 export const signUp = async (data) => {
+    console.log(data)
+    return true
     await axios.post(`${endpoint}/api/account/register`, data).then((response) => {
         console.log(response)
         return response
@@ -24,6 +31,8 @@ export const signUp = async (data) => {
 }
 
 export const activateAccount = async (token) => {
+    console.log(token)
+    return true
     await axios.post(`${endpoint}/api/account/activate/${token}`).then((response) => {
         console.log(response)
         return response
@@ -91,6 +100,8 @@ export const moderateComment = async (data) => {
 /** MOVIE REQUESTS **/
 
 export const getMovieDetails = async (id) => {
+    console.log(id)
+    return movies[id]
     await axios.get(`${endpoint}/api/movie/${id}`).then((response) => {
         console.log(response)
         return response
@@ -109,6 +120,7 @@ export const deleteMovie = async (id) => {
 }
 
 export const getMovies = async (data) => {
+    return movies
     await axios.get(`${endpoint}/api/movie`, data).then((response) => {
         console.log(response)
         return response
