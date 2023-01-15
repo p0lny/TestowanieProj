@@ -79,9 +79,10 @@ namespace BazaFilmowa
             {
                 e.AddPolicy("FrontEnd", builder =>
                 {
-                    builder.AllowAnyMethod()
+                    builder.AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyOrigin();
+                        .AllowAnyMethod()
+                        ;
                 });
             });
         }

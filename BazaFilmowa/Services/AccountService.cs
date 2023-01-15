@@ -86,7 +86,7 @@ namespace BazaFilmowa.Services
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
 
-
+            var guid = new Guid();
             //_dbContext.RegistrationTokens.Add();
 
             //_emailService.SendVerificationEmail(user.Email);
