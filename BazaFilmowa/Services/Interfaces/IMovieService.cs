@@ -1,12 +1,14 @@
-﻿using BazaFilmowa.Models;
+﻿using BazaFilmowa.Entities;
+using BazaFilmowa.Models;
+using System.Collections.Generic;
 
 namespace BazaFilmowa.Services
 {
     public interface IMovieService
     {
-        void GetMovieById(int id);
+        Movie GetMovieById(int id);
         void AddMovie(AddMovieDto addMovieDto);
-        object GetMovies();
+        IEnumerable<Movie> GetMovies();
         void DeleteMovie(int id);
         void EditMovie(EditMovieDto editMovieDto);
     }

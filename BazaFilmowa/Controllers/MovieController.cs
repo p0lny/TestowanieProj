@@ -72,8 +72,8 @@ namespace BazaFilmowa.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit([FromBody] EditMovieDto editMovieDto)
         {
-            var movie =_movieService.EditMovie(editMovieDto);
-            return Ok(movie);
+            _movieService.EditMovie(editMovieDto);
+            return Ok();
         }
     }
 }

@@ -36,7 +36,44 @@ namespace BazaFilmowa
                     _dbContext.SaveChanges();
                 }
 
+                if (!_dbContext.Movies.Any())
+                {
+                    var movies = GetMovies();
+                    _dbContext.Movies.AddRange(movies);
+                    _dbContext.SaveChanges();
+                }
+
             }
+        }
+
+
+        private IEnumerable<Movie> GetMovies()
+        {
+            var movies = new List<Movie>()
+            {
+                new Movie()
+                {
+                    Title =" film 1",
+                },
+                      new Movie()
+                {
+                    Title =" film 2",
+                },
+                            new Movie()
+                {
+                    Title =" film 3",
+                },
+                                  new Movie()
+                {
+                    Title =" film 4",
+                },
+                                        new Movie()
+                {
+                    Title =" film 5",
+                },
+            };
+
+            return movies;
         }
 
         private IEnumerable<Role> GetRoles()
@@ -67,7 +104,7 @@ namespace BazaFilmowa
         {
             var users = new List<User>()
             {
-                
+
             };
 
             var admin = new User()
@@ -81,9 +118,9 @@ namespace BazaFilmowa
 
             var adminHashedPassword = _passwordHasher.HashPassword(admin, "admin");
             admin.PasswordHash = adminHashedPassword;
-            
+
             users.Add(admin);
-           
+
             return users;
         }
     }
