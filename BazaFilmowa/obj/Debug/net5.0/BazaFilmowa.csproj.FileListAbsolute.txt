@@ -25,7 +25,6 @@ C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.I
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -61,3 +60,5 @@ C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\ref\BazaFilmowa.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.pdb
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.genruntimeconfig.cache
+C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.CopyComplete

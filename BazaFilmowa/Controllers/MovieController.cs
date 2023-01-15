@@ -1,4 +1,5 @@
 ﻿using BazaFilmowa.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -15,6 +16,7 @@ namespace BazaFilmowa.Controllers
     {
         
         [HttpGet("{id}")]
+        [Authorize]
         [SwaggerResponse(200)]
         [SwaggerResponse(404)]
         public ActionResult Get([FromRoute] int id)

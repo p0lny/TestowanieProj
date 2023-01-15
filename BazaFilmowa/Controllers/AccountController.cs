@@ -25,7 +25,8 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(401)]
         public ActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
-            throw new NotImplementedException();
+            var token = _accountService.LoginUser(loginUserDto);
+            return Ok(token);
         }
 
 
