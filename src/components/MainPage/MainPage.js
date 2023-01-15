@@ -14,7 +14,7 @@ export default function MainPage() {
     const handleCardClick = (cardId) => {
         console.log("card has been clicked")
         history.push({
-            pathname: `/movie/${cardId}`,
+            pathname: `/movies/${cardId}`,
             state: cardId
         })
         window.location.reload()
@@ -31,11 +31,14 @@ export default function MainPage() {
         <div className={"mainPageContainer"}>
             {
                 movies.length > 0 && movies.map((item, key) => {
+                    if(item.content.length > 140) {
+                        item.content = item.content.substring(0, 140) + "..."
+                    }
                     return (
                         <Card
-                            image={item.image}
+                            image={item.urlPoster}
                             content={item.content}
-                            imageAlt={item.imageAlt}
+                            imageAlt={item.title}
                             title={item.title}
                             key={key}
                             onCardClick={() => handleCardClick(item.movieId)}

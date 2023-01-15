@@ -1,18 +1,25 @@
 import './AccountControls.css'
 import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {verifyUser} from "../Functions/VerifyUser";
 
 export default function AccountControls() {
 
     let history = useHistory()
 
     const [username, setUsername] = useState("")
+    const [role, setRole] = useState("")
 
     useEffect(() => {
-        if (window.localStorage.getItem("token") !== null) {
-            setUsername("Rafal")
+        if (window.localStorage.getItem("token") !== null &&
+            window.localStorage.getItem("username") !== null &&
+            window.localStorage.getItem("role") !== null
+        ) {
+            setUsername(window.localStorage.getItem("username"))
+            setRole(window.localStorage.getItem("role"))
         } else {
             setUsername("")
+            setRole("")
         }
     }, [])
 
@@ -36,6 +43,20 @@ export default function AccountControls() {
         window.location.reload()
     }
 
+    const goToAddMovie = () => {
+        if (verifyUser()) {
+            // redirect to add-movie page
+            console.log("redirect to add-movie page")
+            history.push('/movie/add')
+            window.location.reload()
+        } else {
+            // redirect to add-movie page
+            console.warn("Corrupted credentials")
+            history.push('/')
+            window.location.reload()
+        }
+    }
+
     return (
         <>
             {
@@ -57,8 +78,10 @@ export default function AccountControls() {
                         </button>
 
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><button className="dropdown-item">Action</button></li>
-                            <li><button className="dropdown-item">Another action</button></li>
+                            {
+                                role === "Admin" &&
+                                <li><button className="dropdown-item" onClick={goToAddMovie}>Add movie</button></li>
+                            }
                             <li><button className="dropdown-item" onClick={signOut}>Sign out</button></li>
                         </ul>
                     </div>

@@ -14,7 +14,7 @@ export default function Header () {
 
     return (
         <div id={"header"} className={"bg-primary"}>
-            <span id={"appname"} onClick={handleLogoClick}>Biblioteka Filmowa</span>
+            <span id={"appname"} onClick={handleLogoClick}>MovieLibrary</span>
             <div style={{marginTop: "0.5vh"}}>
                 <Searchbar width={"40vw"}/>
             </div>

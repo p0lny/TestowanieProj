@@ -7,6 +7,8 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import MainPage from "./components/MainPage/MainPage";
 import MovieDetails from "./components/Utils/MovieDetails/MovieDetails";
 import ConfirmRegistration from "./components/ConfirmRegistration/ConfirmRegistration";
+import AddMovie from "./components/AddMovie/AddMovie";
+import EditMovie from "./components/EditMovie/EditMovie";
 
 function App() {
 
@@ -22,8 +24,14 @@ function App() {
                         <Route path={"/signin"}>
                             <LoginPage/>
                         </Route>
-                        <Route path={"/movie/:id"}>
+                        <Route path={"/movies/:id"}>
                             <MovieDetails/>
+                        </Route>
+                        <Route path={"/movie/add"}>
+                            <AddMovie/>
+                        </Route>
+                        <Route path={"/movie/edit/:id"}>
+                            <EditMovie/>
                         </Route>
                         <Route path={"/activate/:id"}>
                             <ConfirmRegistration/>

@@ -2,6 +2,7 @@ import './LoginPage.css'
 import {useState} from "react";
 import {signIn} from "../API/Server";
 import {useHistory} from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 export default function LoginPage() {
 
@@ -28,8 +29,11 @@ export default function LoginPage() {
             }
             signIn(dataPack).then((response) => {
                 console.log(response)
-                window.localStorage.setItem("token", response)
-                // redirect()
+                let jwtDecoded = Object.values(jwtDecode(response.data))
+                window.localStorage.setItem("token", response.data)
+                window.localStorage.setItem("username", jwtDecoded[1])
+                window.localStorage.setItem("role", jwtDecoded[2])
+                redirect()
             }).catch((error) => {
                 console.warn(error)
             })
