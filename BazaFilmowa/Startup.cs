@@ -74,6 +74,16 @@ namespace BazaFilmowa
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BazaFilmowa", Version = "v1" });
             });
+
+            services.AddCors(e =>
+            {
+                e.AddPolicy("FrontEnd", builder =>
+                {
+                    builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,12 +99,7 @@ namespace BazaFilmowa
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BazaFilmowa v1"));
             }
 
-            app.UseCors(e =>
-            {
-                e.AllowAnyMethod();
-                e.AllowAnyHeader();
-                e.AllowAnyOrigin();
-            });
+            app.UseCors("FrontEnd");
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
