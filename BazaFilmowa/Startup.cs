@@ -90,6 +90,7 @@ namespace BazaFilmowa
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApiDbSeeder seeder)
         {
+            app.UseCors("FrontEnd");
 
             seeder.Seed();
 
@@ -100,7 +101,6 @@ namespace BazaFilmowa
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BazaFilmowa v1"));
             }
 
-            app.UseCors("FrontEnd");
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
