@@ -1,0 +1,9 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vh;
+}
+
+.mainForm {
+    width: 55vw;
+}
