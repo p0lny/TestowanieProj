@@ -1,4 +1,5 @@
 ﻿using BazaFilmowa.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,6 +12,7 @@ namespace BazaFilmowa.Controllers
 {
     [Route("api/rating")]
     [ApiController]
+    [Authorize]
     public class RatingController : ControllerBase
     {
 

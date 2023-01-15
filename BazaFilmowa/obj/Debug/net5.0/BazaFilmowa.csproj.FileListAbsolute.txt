@@ -11,6 +11,7 @@ C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\FluentValid
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Humanizer.dll
+C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -60,6 +61,3 @@ C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\ref\BazaFilmowa.dll
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.pdb
 C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.genruntimeconfig.cache
-C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.CopyComplete
-C:\Users\okuch\source\repos\BazaFilmowa\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.AssemblyReference.cache

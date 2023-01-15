@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BazaFilmowa.Entities
-{ 
+{
     public class ApiDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -14,6 +14,18 @@ namespace BazaFilmowa.Entities
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<RegistrationToken> RegistrationTokens { get; set; }
+
+
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieDetails> MovieDetails { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<MovieGenre> MovieGenres { get; set; }
+        public DbSet<UserMovieRating> UserMovieRatings { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<MovieToBeWatched> MovieToBeWatched { get; set; }
+        public DbSet<MovieWatched> MovieWatched { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,6 +39,43 @@ namespace BazaFilmowa.Entities
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            modelBuilder.Entity<MovieDetails>()
+                .HasKey(e => e.MovieId);
+
+            modelBuilder.Entity<Rating>()
+                .HasKey(e => e.MovieId);
+
+            modelBuilder.Entity<UserMovieRating>()
+                .HasKey(e => new
+                {
+                    e.MovieId,
+                    e.UserId
+                });
+
+            modelBuilder.Entity<MovieGenre>()
+                .HasKey(e => new
+                {
+                    e.MovieId,
+                    e.GenreId
+                });
+
+            modelBuilder.Entity<MovieToBeWatched>()
+                .HasKey(e => new
+                {
+                    e.MovieId,
+                    e.UserId
+                });
+
+            modelBuilder.Entity<MovieWatched>()
+                 .HasKey(e => new
+                 {
+                    e.MovieId,
+                     e.UserId
+                 });
+
+
+
         }
 
         private SqlConnectionStringBuilder GetSqlConnectionString()

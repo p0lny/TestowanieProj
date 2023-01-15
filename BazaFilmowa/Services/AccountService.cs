@@ -1,4 +1,4 @@
-﻿using BazaFilmowa.Entities;
+﻿ using BazaFilmowa.Entities;
 using BazaFilmowa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +20,37 @@ namespace BazaFilmowa.Services
         private readonly AuthenticationSettings _authenticationSettings;
         private readonly IEmailService _emailService;
 
-        public AccountService(ApiDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, IEmailService emailService )
+        public AccountService(ApiDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, IEmailService emailService)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
             _emailService = emailService;
+        }
+
+        public void ActivateUser(string token)
+        {
+            if (_dbContext.RegistrationTokens.Any(e => e.Token == token))
+            {
+                var registrationToken = _dbContext.RegistrationTokens
+                                            .Include(e => e.User)
+                                            .FirstOrDefault(e => e.Token == token);
+
+                if (DateTime.Now.Subtract(registrationToken.ExpiresAt) > new TimeSpan(0))
+                {
+                    throw new Exception(); //todo
+                }
+
+                registrationToken.User.IsActivated = true;
+
+                _dbContext.SaveChanges();
+                _dbContext.RegistrationTokens.Remove(registrationToken);
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception(); //todo
+            }
         }
 
         public string LoginUser(LoginUserDto loginUserDto)
@@ -40,6 +65,11 @@ namespace BazaFilmowa.Services
 
                 if (result == PasswordVerificationResult.Success)
                 {
+
+                    if (!user.IsActivated)
+                    {
+                        throw new Exception(); //todo
+                    }
 
                     var claims = new List<Claim>()
                     {
@@ -66,7 +96,7 @@ namespace BazaFilmowa.Services
                 }
             }
 
-            throw new Exception();
+            throw new Exception(); //todo 
         }
 
         public void RegisterUser(RegisterUserDto registerUserDto)
@@ -86,10 +116,16 @@ namespace BazaFilmowa.Services
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
 
-            var guid = new Guid();
-            //_dbContext.RegistrationTokens.Add();
+            var registrationToken = new RegistrationToken()
+            {
+                UserId = user.Id,
+                ExpiresAt = DateTime.Now.AddHours(24),
+                Token = Guid.NewGuid().ToString()
+            };
+            _dbContext.RegistrationTokens.Add(registrationToken);
+            _dbContext.SaveChanges();
 
-            //_emailService.SendVerificationEmail(user.Email);
+            _emailService.SendVerificationEmail(user.Email, registrationToken);
         }
     }
 }

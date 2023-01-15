@@ -12,6 +12,7 @@ namespace BazaFilmowa.Controllers
 {
     [Route("api/movie")]
     [ApiController]
+    [Authorize]
     public class MovieController : ControllerBase
     {
         
@@ -36,6 +37,7 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
         [SwaggerResponse(403)]
+        [Authorize(Roles ="Admin,Moderator")]
         public ActionResult Add([FromBody] AddMovieDto addMovieDto)
         {
             throw new NotImplementedException();
@@ -46,6 +48,7 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(401)]
         [SwaggerResponse(403)]
         [SwaggerResponse(404)]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete([FromQuery] int id)
         {
             throw new NotImplementedException();
@@ -57,6 +60,7 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(401)]
         [SwaggerResponse(403)]
         [SwaggerResponse(404)]
+        [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit([FromBody] EditMovieDto editMovieDto)
         {
             throw new NotImplementedException();

@@ -4,14 +4,16 @@ using BazaFilmowa.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BazaFilmowa.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230115211428_full-version-v1")]
+    partial class fullversionv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +94,9 @@ namespace BazaFilmowa.Migrations
             modelBuilder.Entity("BazaFilmowa.Entities.MovieDetails", b =>
                 {
                     b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<short>("AgeRestriction")
                         .HasColumnType("smallint");
@@ -272,8 +276,7 @@ namespace BazaFilmowa.Migrations
 
                     b.HasKey("MovieId", "UserId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserMovieRatings");
                 });
@@ -281,13 +284,13 @@ namespace BazaFilmowa.Migrations
             modelBuilder.Entity("BazaFilmowa.Entities.Comment", b =>
                 {
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -295,17 +298,6 @@ namespace BazaFilmowa.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BazaFilmowa.Entities.MovieDetails", b =>
-                {
-                    b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithOne("MovieDetails")
-                        .HasForeignKey("BazaFilmowa.Entities.MovieDetails", "MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("BazaFilmowa.Entities.MovieGenre", b =>
@@ -317,7 +309,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany("MovieGenres")
+                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -336,7 +328,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany("MoviesToBeWatched")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -355,7 +347,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany("MoviesWatched")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -401,14 +393,14 @@ namespace BazaFilmowa.Migrations
             modelBuilder.Entity("BazaFilmowa.Entities.UserMovieRating", b =>
                 {
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany("UserMovieRatings")
+                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithOne("UserMovieRating")
-                        .HasForeignKey("BazaFilmowa.Entities.UserMovieRating", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -422,17 +414,6 @@ namespace BazaFilmowa.Migrations
                     b.Navigation("MovieGenres");
                 });
 
-            modelBuilder.Entity("BazaFilmowa.Entities.Movie", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("MovieDetails");
-
-                    b.Navigation("MovieGenres");
-
-                    b.Navigation("UserMovieRatings");
-                });
-
             modelBuilder.Entity("BazaFilmowa.Entities.Role", b =>
                 {
                     b.Navigation("Users");
@@ -440,15 +421,7 @@ namespace BazaFilmowa.Migrations
 
             modelBuilder.Entity("BazaFilmowa.Entities.User", b =>
                 {
-                    b.Navigation("Comments");
-
-                    b.Navigation("MoviesToBeWatched");
-
-                    b.Navigation("MoviesWatched");
-
                     b.Navigation("RegistrationToken");
-
-                    b.Navigation("UserMovieRating");
                 });
 #pragma warning restore 612, 618
         }

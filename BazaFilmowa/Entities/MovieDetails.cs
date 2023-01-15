@@ -14,5 +14,8 @@ namespace BazaFilmowa.Entities
         public string Language { get; set; }
         public string Description { get; set; }
         public short AgeRestriction { get; set; }
+
+
+        public virtual Movie Movie { get; set; }
     }
 }

@@ -12,5 +12,11 @@ namespace BazaFilmowa.Entities
         public string UrlPoster { get; set; }
         public string UrlTrailer { get; set; }
 
+
+        public IEnumerable<UserMovieRating> UserMovieRatings { get; set; }
+        public virtual IEnumerable<Comment> Comments { get; set; }
+        public virtual IEnumerable<MovieGenre> MovieGenres { get; set; }
+        public virtual MovieDetails MovieDetails { get; set; }
     }
 }
+

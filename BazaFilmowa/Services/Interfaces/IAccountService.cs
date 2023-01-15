@@ -6,5 +6,6 @@ namespace BazaFilmowa.Services
     {
         void RegisterUser(RegisterUserDto registerUserDto);
         string LoginUser(LoginUserDto loginUserDto);
+        void ActivateUser(string token);
     }
 }

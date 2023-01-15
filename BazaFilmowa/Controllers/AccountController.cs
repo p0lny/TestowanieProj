@@ -1,5 +1,6 @@
 ﻿using BazaFilmowa.Models;
 using BazaFilmowa.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,6 +13,7 @@ namespace BazaFilmowa.Controllers
 {
     [Route("api/account")]
     [ApiController]
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -44,7 +46,8 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(404)]
         public ActionResult Activate([FromRoute] string token)
         {
-            throw new NotImplementedException();
+            _accountService.ActivateUser(token);
+            return Ok();
         }
     }
 }

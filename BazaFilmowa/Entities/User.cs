@@ -1,5 +1,7 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace BazaFilmowa.Entities
 {
     public class User
@@ -13,7 +15,10 @@ namespace BazaFilmowa.Entities
         public int RoleId { get; set; }
 
 
-
+        public virtual UserMovieRating UserMovieRating { get; set; }
+        public virtual IEnumerable<MovieToBeWatched> MoviesToBeWatched { get; set; }
+        public virtual IEnumerable<MovieWatched> MoviesWatched { get; set; }
+        public virtual IEnumerable<Comment> Comments { get; set; }
         public virtual Role Role { get; set; }
         public virtual RegistrationToken RegistrationToken { get; set; }
     }

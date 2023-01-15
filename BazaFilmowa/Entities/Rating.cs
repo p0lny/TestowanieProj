@@ -7,5 +7,12 @@ namespace BazaFilmowa.Entities
 {
     public class Rating
     {
+        public int MovieId { get; set; }
+        public double AverageRating { get; set; }
+        public int VotesNumber { get; set; }
+
+
+
+        public virtual Movie Movie { get; set; }
     }
 }
