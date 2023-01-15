@@ -7,7 +7,8 @@ export default function RegisterPage () {
 
     const history = useHistory()
 
-    const [username, setUsername] = useState("")
+    const [name, setName] = useState("")
+    const [surname, setSurname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [borderColorUsername, setBorderColorUsername] = useState("border-dark")
@@ -16,7 +17,7 @@ export default function RegisterPage () {
     const [warning, setWarning] = useState(false)
 
     const validateUsername = () => {
-        if (username.length > 2 && username.length < 20) {
+        if (name.length > 2 && name.length < 20) {
             console.log("Valid username")
             setBorderColorUsername("border-dark")
         } else {
@@ -62,9 +63,11 @@ export default function RegisterPage () {
     const attemptSignUp = () => {
         if(validateUsername() && validateEmail() && validatePassword()) {
             let dataPack = {
-                username,
+                name,
+                surname,
                 email,
-                password
+                password,
+                passwordConfirmation: password
             }
             signUp(dataPack).then((response) => {
                 console.log(response)
@@ -84,15 +87,30 @@ export default function RegisterPage () {
                            id="form2Example0"
                            className={`form-control ${borderColorUsername}`}
                            required={true}
-                           value={username}
+                           value={name}
                            placeholder={"Between 2 and 20 characters"}
                            onChange={(e) => {
-                               setUsername(e.target.value)
+                               setName(e.target.value)
                                validateUsername()
                                setWarning(false)
                            }}
                     />
-                    <label className="form-label" htmlFor="form2Example0">Username</label>
+                    <label className="form-label" htmlFor="form2Example0">Name</label>
+                </div>
+
+                <div className="form-outline mb-4">
+                    <input type="text"
+                           id="form2Example3"
+                           className={`form-control border-dark`}
+                           required={true}
+                           value={surname}
+                           placeholder={"Between 2 and 20 characters"}
+                           onChange={(e) => {
+                               setSurname(e.target.value)
+                               setWarning(false)
+                           }}
+                    />
+                    <label className="form-label" htmlFor="form2Example3">Surname</label>
                 </div>
 
                 <div className="form-outline mb-4">

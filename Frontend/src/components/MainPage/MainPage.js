@@ -23,7 +23,8 @@ export default function MainPage() {
     // Get all movies on page load
     useEffect(() => {
         getMovies().then((response) => {
-            setMovies(response)
+            console.log(response.data)
+            setMovies(response.data)
         })
     }, [])
 
@@ -31,9 +32,9 @@ export default function MainPage() {
         <div className={"mainPageContainer"}>
             {
                 movies.length > 0 && movies.map((item, key) => {
-                    if(item.content.length > 140) {
-                        item.content = item.content.substring(0, 140) + "..."
-                    }
+                    // if(item.content.length > 140) {
+                    //     item.content = item.content.substring(0, 140) + "..."
+                    // }
                     return (
                         <Card
                             image={item.urlPoster}

@@ -50,17 +50,15 @@ export const moderateComment = async (data) => {
 /** MOVIE REQUESTS **/
 
 export const getMovieDetails = async (id) => {
-    return movies[id - 1]
-    return await axios.get(`${endpoint}/api/movie/${id}`)
+    return await axios.get(`${endpoint}/api/movie/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const deleteMovie = async (id) => {
     return await axios.delete(`${endpoint}/api/movie/${id}`)
 }
 
-export const getMovies = async (data) => {
-    return movies
-    return await axios.get(`${endpoint}/api/movie`, data)
+export const getMovies = async () => {
+    return await axios.get(`${endpoint}/api/movie`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const postMovie = async (data) => {
