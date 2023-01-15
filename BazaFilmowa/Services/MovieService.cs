@@ -7,9 +7,12 @@ namespace BazaFilmowa.Services
 {
     public class MovieService : IMovieService
     {
-        public MovieService()
+        public readonly IUserContextService _userContextService;
+        public MovieService(IUserContextService userContextService)
         {
-
+            _userContextService = userContextService;
         }
+
+
     }
 }

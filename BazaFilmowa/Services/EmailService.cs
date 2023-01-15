@@ -16,7 +16,7 @@ namespace BazaFilmowa.Services
             MailAddress from = new MailAddress("bazafilmowa.noreply@gmail.com");
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Potwierdzenie adresu email - Baza filmowa";
-            message.Body = $"Potwierdź: https://localhost:3000/activate/{registrationToken.Token}";
+            message.Body = $"Potwierdź: http://localhost:3000/activate/{registrationToken.Token}";
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("bazafilmowa.noreply@gmail.com", "lzswsqesvcunhhjl"),

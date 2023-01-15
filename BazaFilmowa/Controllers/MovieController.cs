@@ -1,4 +1,5 @@
 ﻿using BazaFilmowa.Models;
+using BazaFilmowa.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,21 +16,27 @@ namespace BazaFilmowa.Controllers
     [Authorize]
     public class MovieController : ControllerBase
     {
-        
+        private readonly IMovieService _movieService;
+        public MovieController(IMovieService movieService)
+        {
+            _movieService = movieService;
+        }
         [HttpGet("{id}")]
         [Authorize]
         [SwaggerResponse(200)]
         [SwaggerResponse(404)]
         public ActionResult Get([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            var movie = _movieService.GetMovieById(id);
+            return Ok(movie);
         }
 
         [HttpGet]
         [SwaggerResponse(200)]
         public ActionResult GetAll([FromQuery] PagingQuery pagingQuery, [FromQuery] SearchQuery searchQuery = null)
         {
-            throw new NotImplementedException();
+            var movies = _movieService.GetMovies();
+            return Ok(movies);
         }
 
         [HttpPost]
@@ -37,12 +44,13 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
         [SwaggerResponse(403)]
-        [Authorize(Roles ="Admin,Moderator")]
+        [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add([FromBody] AddMovieDto addMovieDto)
         {
-            throw new NotImplementedException();
+            _movieService.AddMovie(addMovieDto);
+            return Ok();
         }
-        
+
         [HttpDelete("{id}")]
         [SwaggerResponse(200)]
         [SwaggerResponse(401)]
@@ -51,7 +59,8 @@ namespace BazaFilmowa.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete([FromQuery] int id)
         {
-            throw new NotImplementedException();
+            _movieService.DeleteMovie(id);
+            return Ok();
         }
 
         [HttpPut]
@@ -63,7 +72,8 @@ namespace BazaFilmowa.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Edit([FromBody] EditMovieDto editMovieDto)
         {
-            throw new NotImplementedException();
+            var movie =_movieService.EditMovie(editMovieDto);
+            return Ok(movie);
         }
     }
 }
