@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w1MtzLmt6GkREPRVsB+dzpjtcqBguhD1MB5ZHxKoG80v/mhK3S+81Mr+fBE+9Sat/3aGwAKYaAYSfmW6TJBCzg==",
+  "dgSpecHash": "kA9w8ag++wQpsVioo1wbWV0LSLSKGC+xvi3GiTp7xmwvvMzImC3h1IqgK/yuwz3cUC/AZizBG+gWtw7qqOi/sg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\BazaFilmowa.csproj",
+  "projectFilePath": "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\BazaFilmowa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\okuch\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512",
     "C:\\Users\\okuch\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.4.0\\fluentvalidation.aspnetcore.9.4.0.nupkg.sha512",

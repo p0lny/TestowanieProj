@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\BazaFilmowa.csproj": {}
+    "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\BazaFilmowa.csproj": {}
   },
   "projects": {
-    "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\BazaFilmowa.csproj": {
+    "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\BazaFilmowa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\BazaFilmowa.csproj",
+        "projectUniqueName": "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\BazaFilmowa.csproj",
         "projectName": "BazaFilmowa",
-        "projectPath": "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\BazaFilmowa.csproj",
+        "projectPath": "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\BazaFilmowa.csproj",
         "packagesPath": "C:\\Users\\okuch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\okuch\\source\\repos\\BazaFilmowa\\BazaFilmowa\\obj\\",
+        "outputPath": "C:\\Users\\okuch\\Desktop\\proj\\TestowanieProj\\BazaFilmowa\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
