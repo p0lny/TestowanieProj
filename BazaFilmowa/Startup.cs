@@ -70,6 +70,7 @@ namespace BazaFilmowa
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
+            services.AddScoped<IMovieService, MovieService>();
 
             services.AddSwaggerGen(c =>
             {
