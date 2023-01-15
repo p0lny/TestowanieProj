@@ -139,3 +139,10 @@ erDiagram
 
 Oliwer Kucharzyk - backend \
 Rafał Bobka - frontend
+
+## Swagger info:
+
+Aby podejrzeć dokumentację API otwórz stronę https://editor.swagger.io/ a następnie zaimportuj plik swagger.json dostępny w repozytorium. Docelowo dokumentcja będzie dostępna na serwerze hostującym API pod odpowiednim adresem URL.
+
+Opcjonalnie (swagger hub): https://app.swaggerhub.com/apis/okucharzyk.96/baza-filmowa/v1
+
