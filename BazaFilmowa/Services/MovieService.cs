@@ -11,7 +11,7 @@ namespace BazaFilmowa.Services
     {
         public readonly IUserContextService _userContextService;
         private readonly ApiDbContext _dbContext;
-        public MovieService(ApiDbContext dbContext, IUserContextService userContextService,)
+        public MovieService(ApiDbContext dbContext, IUserContextService userContextService)
         {
             _dbContext = dbContext;
             _userContextService = userContextService;
