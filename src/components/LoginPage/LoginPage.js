@@ -29,7 +29,7 @@ export default function LoginPage() {
             signIn(dataPack).then((response) => {
                 console.log(response)
                 window.localStorage.setItem("token", response)
-                redirect()
+                // redirect()
             }).catch((error) => {
                 console.warn(error)
             })

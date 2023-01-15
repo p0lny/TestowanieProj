@@ -2,15 +2,14 @@ import axios from "axios";
 import {config} from "../../config";
 
 // mock data
-import {jwt, movies} from "./mockdata";
+import {movies} from "./mockdata";
 
-const endpoint = config.server + ":" + config.port
+const endpoint = "https://" + config.server + ":" + config.port
 
 /** ACCOUNT REQUESTS **/
 
 export const signIn = async (data) => {
-    console.log(data)
-    return jwt
+    console.log(endpoint)
     await axios.post(`${endpoint}/api/account/login`, data).then((response) => {
         console.log(response)
         return response
