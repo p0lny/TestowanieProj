@@ -17,11 +17,9 @@ namespace BazaFilmowa.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMovieService _movieService;
-        private readonly IUserContextService _userContextService;
-        public MovieController(IMovieService movieService, IUserContextService userContextService)
+        public MovieController(IMovieService movieService)
         {
             _movieService = movieService;
-            _userContextService = userContextService;
         }
 
         [HttpGet("details/{id}")]

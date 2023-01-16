@@ -1,4 +1,5 @@
 ﻿using BazaFilmowa.Models;
+using BazaFilmowa.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,11 +15,20 @@ namespace BazaFilmowa.Controllers
     public class CommentController : ControllerBase
     {
 
+        ICommentService _commentService;
+        IUserContextService _userContextService;
+        public CommentController(ICommentService commentService,IUserContextService userContextService)
+        {
+            _commentService = commentService;
+            _userContextService = userContextService;
+        }
+
         [HttpGet]
         [SwaggerResponse(200)]
-        public ActionResult GetAll([FromQuery] int movieId, [FromQuery] PagingQuery pagingQuery)
+        public ActionResult GetCommentsForMovie([FromQuery] int movieId, [FromQuery] PagingQuery pagingQuery)
         {
-            throw new NotImplementedException();
+            var comments = _commentService.GetCommentsForMovie(movieId);
+            return Ok(comments);
         }
 
         [HttpGet("history/{id}")]
@@ -35,7 +45,8 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(401)]
         public ActionResult Add([FromBody] AddCommentDto addCommentDto)
         {
-            throw new NotImplementedException();
+            _commentService.AddComment(addCommentDto);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
