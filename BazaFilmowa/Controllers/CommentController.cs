@@ -1,5 +1,6 @@
 ﻿using BazaFilmowa.Models;
 using BazaFilmowa.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,15 +13,14 @@ namespace BazaFilmowa.Controllers
 {
     [Route("api/comments")]
     [ApiController]
+    [Authorize]
     public class CommentController : ControllerBase
     {
 
         ICommentService _commentService;
-        IUserContextService _userContextService;
-        public CommentController(ICommentService commentService,IUserContextService userContextService)
+        public CommentController(ICommentService commentService)
         {
             _commentService = commentService;
-            _userContextService = userContextService;
         }
 
         [HttpGet]
