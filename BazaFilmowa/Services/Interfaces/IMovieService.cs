@@ -6,10 +6,11 @@ namespace BazaFilmowa.Services
 {
     public interface IMovieService
     {
-        Movie GetMovieById(int id);
+        MovieDto GetMovieById(int id);
         void AddMovie(AddMovieDto addMovieDto);
-        IEnumerable<Movie> GetMovies();
+        IEnumerable<MovieDto> GetMovies();
         void DeleteMovie(int id);
         void EditMovie(EditMovieDto editMovieDto);
+        MovieDetailsDto GetMovieDetailsById(int id);
     }
 }

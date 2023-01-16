@@ -36,6 +36,8 @@ namespace BazaFilmowa
                     _dbContext.SaveChanges();
                 }
 
+                
+
                 if (!_dbContext.Movies.Any())
                 {
                     var movies = GetMovies();

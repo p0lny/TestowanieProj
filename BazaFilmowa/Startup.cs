@@ -64,13 +64,14 @@ namespace BazaFilmowa
 
             services.AddDbContext<ApiDbContext>();
             services.AddScoped<ApiDbSeeder>();
+            services.AddScoped<IUserContextService, UserContextService>();
+            services.AddHttpContextAccessor();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
-            services.AddScoped<IUserContextService, UserContextService>();
-            services.AddHttpContextAccessor();
             services.AddScoped<IMovieService, MovieService>();
+            services.AddAutoMapper(this.GetType().Assembly);
 
             services.AddSwaggerGen(c =>
             {

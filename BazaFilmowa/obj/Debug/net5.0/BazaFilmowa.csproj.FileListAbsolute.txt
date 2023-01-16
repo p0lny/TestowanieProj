@@ -124,3 +124,10 @@ C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\staticwe
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\scopedcss\bundle\BazaFilmowa.styles.css
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.RazorTargetAssemblyInfo.cache
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.genruntimeconfig.cache
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.CopyComplete

@@ -17,23 +17,35 @@ namespace BazaFilmowa.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMovieService _movieService;
-        public MovieController(IMovieService movieService)
+        private readonly IUserContextService _userContextService;
+        public MovieController(IMovieService movieService, IUserContextService userContextService)
         {
             _movieService = movieService;
+            _userContextService = userContextService;
         }
-        [HttpGet("{id}")]
-        [Authorize]
+
+        [HttpGet("details/{id}")]
         [SwaggerResponse(200)]
         [SwaggerResponse(404)]
-        public ActionResult Get([FromRoute] int id)
+        public ActionResult GetMovieDetails([FromRoute] int id)
+        {
+            var movie = _movieService.GetMovieDetailsById(id);
+            return Ok(movie);
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerResponse(200)]
+        [SwaggerResponse(404)]
+        public ActionResult GetMovie([FromRoute] int id)
         {
             var movie = _movieService.GetMovieById(id);
             return Ok(movie);
         }
 
+
         [HttpGet]
         [SwaggerResponse(200)]
-        public ActionResult GetAll([FromQuery] PagingQuery pagingQuery, [FromQuery] SearchQuery searchQuery = null)
+        public ActionResult GetMovies([FromQuery] PagingQuery pagingQuery, [FromQuery] SearchQuery searchQuery = null)
         {
             var movies = _movieService.GetMovies();
             return Ok(movies);

@@ -1,4 +1,5 @@
-﻿using BazaFilmowa.Entities;
+﻿using AutoMapper;
+using BazaFilmowa.Entities;
 using BazaFilmowa.Models;
 using System;
 using System.Collections.Generic;
@@ -11,37 +12,77 @@ namespace BazaFilmowa.Services
     {
         public readonly IUserContextService _userContextService;
         private readonly ApiDbContext _dbContext;
-        public MovieService(ApiDbContext dbContext, IUserContextService userContextService)
+        private readonly IMapper _mapper;
+        public MovieService(ApiDbContext dbContext, IUserContextService userContextService, IMapper mapper)
         {
             _dbContext = dbContext;
             _userContextService = userContextService;
+            _mapper = mapper;
         }
 
         public void AddMovie(AddMovieDto addMovieDto)
         {
-            throw new NotImplementedException();
+            var movie = _mapper.Map<Movie>(addMovieDto);
+            var movieDetails = _mapper.Map<MovieDetails>(addMovieDto);
+
+            _dbContext.Movies.Add(movie);
+            _dbContext.SaveChanges();
+
+            movieDetails.MovieId = movie.Id;
+            _dbContext.MovieDetails.Add(movieDetails);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteMovie(int id)
         {
-            throw new NotImplementedException();
+            if (!_dbContext.Movies.Any(e => e.Id == id))
+            {
+                throw new Exception();
+            }
+
+            var movie = _dbContext.Movies.FirstOrDefault(e => e.Id == id);
+            var movieDetails = _dbContext.MovieDetails.FirstOrDefault(e => e.MovieId == id);
+
+            if (movieDetails != null)
+            {
+                _dbContext.Remove(movieDetails);
+            }
+
+            if (movie != null)
+            {
+                _dbContext.Remove(movie);
+            }
         }
 
         public void EditMovie(EditMovieDto editMovieDto)
         {
-            throw new NotImplementedException();
+            var updatedMovie = _mapper.Map<Movie>(editMovieDto);
+            var updatedMovieDetails = _mapper.Map<MovieDetails>(editMovieDto);
+
+            _dbContext.Movies.Update(updatedMovie);
+            _dbContext.MovieDetails.Update(updatedMovieDetails);
+            _dbContext.SaveChanges();
         }
 
-        public Movie GetMovieById(int id)
+        public MovieDto GetMovieById(int id)
         {
             var movie = _dbContext.Movies.FirstOrDefault(e => e.Id == id);
-            return movie;
+            var movieDto = _mapper.Map<MovieDto>(movie);
+            return movieDto;
         }
 
-        public IEnumerable<Movie> GetMovies()
+        public MovieDetailsDto GetMovieDetailsById(int id)
+        {
+            var movieDetails = _dbContext.MovieDetails.FirstOrDefault(e => e.MovieId == id);
+            var movieDetailsDto = _mapper.Map<MovieDetailsDto>(movieDetails);
+            return movieDetailsDto;
+        }
+
+        public IEnumerable<MovieDto> GetMovies()
         {
             var movies = _dbContext.Movies.ToList();
-            return movies;
+            var moviesDtos = _mapper.Map<List<MovieDto>>(movies);
+            return moviesDtos;
         }
     }
 }
