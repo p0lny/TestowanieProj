@@ -45,6 +45,7 @@ namespace BazaFilmowa.Controllers
 
         [HttpGet]
         [SwaggerResponse(200)]
+        [AllowAnonymous]
         public ActionResult GetMovies([FromQuery] PagingQuery pagingQuery, [FromQuery] SearchQuery searchQuery = null)
         {
             var movies = _movieService.GetMovies();
