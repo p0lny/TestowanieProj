@@ -1,9 +1,6 @@
 ﻿using BazaFilmowa.Entities;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BazaFilmowa.Models.Validators
 {
@@ -20,7 +17,17 @@ namespace BazaFilmowa.Models.Validators
                    {
                        contex.AddFailure("Movie", "Movie with this title already exists in database.");
                    }
-               });
+               })
+                .NotEmpty()
+                .NotNull();
+
+            RuleFor(e=>e.UrlPoster)
+                .NotEmpty()
+                .NotNull();
+
+            RuleFor(e=>e.UrlTrailer)
+                .NotEmpty()
+                .NotNull();
         }
     }
 }

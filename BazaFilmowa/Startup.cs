@@ -73,6 +73,8 @@ namespace BazaFilmowa
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IRatingService, RatingService>();
 
             //validators
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

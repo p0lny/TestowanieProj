@@ -20,7 +20,9 @@ namespace BazaFilmowa.Models.Validators
                          {
                              contex.AddFailure("No movie for given id", "There is no movie with the given id");
                          }
-                     });
+                     })
+                .NotEmpty()
+                .NotNull();
         }
     }
 }

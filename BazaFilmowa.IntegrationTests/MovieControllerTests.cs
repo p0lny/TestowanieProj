@@ -9,6 +9,10 @@ using System.Net.Http;
 using Microsoft.EntityFrameworkCore;
 using BazaFilmowa.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using BazaFilmowa.Models;
+using Newtonsoft.Json;
+using System.Text;
+using Microsoft.AspNetCore.Authorization.Policy;
 
 namespace BazaFilmowa.IntegrationTests
 {
@@ -26,7 +30,12 @@ namespace BazaFilmowa.IntegrationTests
                         var dbContextOptions = services.SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<ApiDbContext>));                      
                         services.Remove(dbContextOptions);
 
+                        services.AddSingleton<IPolicyEvaluator,FakePolicyEvaluator>();
+                        services.AddMvc(option => option.Filters.Add(new FakeUserFilter()));
+
+
                         services.AddDbContext<ApiDbContext>(options=> options.UseInMemoryDatabase("TestsDb"));
+                    
                     });
                 })
                 .CreateClient();
@@ -40,10 +49,9 @@ namespace BazaFilmowa.IntegrationTests
         public async Task GetMovies_WithQueryParams_ReturnsStatusOk(string queryParams)
         {
             //arrange
-            var client = _client;
 
             //act
-            var response = await client.GetAsync("/api/movie?" + queryParams);
+            var response = await _client.GetAsync("/api/movie?" + queryParams);
 
             //assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
@@ -62,13 +70,40 @@ namespace BazaFilmowa.IntegrationTests
         public async Task GetMovies_WithInvalidQueryParams_ReturnsBadRequest(string queryParams)
         {
             //arrange
-            var client = _client;
 
             //act
-            var response = await client.GetAsync("/api/movie?" + queryParams);
+            var response = await _client.GetAsync("/api/movie?" + queryParams);
 
             //assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
+    
+    
+        [Fact]
+
+        public async Task AddMovie_WithValidModel_ReturnCreatedStatus()
+        {
+            //arrange
+            
+            var model = new AddMovieDto()
+            {
+                Title = "Tytuł testowy",
+                UrlPoster = "test-poster",
+                UrlTrailer = "test-trailer"
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+            var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
+            //act
+
+            var response = await _client.PostAsync("/api/movie", httpContent);
+
+            //assert
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+            response.Headers.Location.Should().NotBeNull();
+        }
+
     }
 }
