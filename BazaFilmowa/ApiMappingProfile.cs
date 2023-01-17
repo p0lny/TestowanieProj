@@ -18,8 +18,11 @@ namespace BazaFilmowa
             CreateMap<MovieDetails, MovieDetailsDto>();
             CreateMap<AddMovieDto, Movie>();
             CreateMap<AddMovieDto, MovieDetails>();
-            CreateMap<EditMovieDto, Movie>();
-            CreateMap<EditMovieDto, MovieDetails>();
+            CreateMap<EditMovieDto, Movie>()
+                .ForMember(e => e.Id, m => m.Ignore());
+            CreateMap<EditMovieDto, MovieDetails>()
+                .ForMember(e => e.Id, m => m.Ignore())
+                .ForMember(e => e.MovieId,m=>m.Ignore());
 
             //comments
             CreateMap<Comment, CommentDto>();

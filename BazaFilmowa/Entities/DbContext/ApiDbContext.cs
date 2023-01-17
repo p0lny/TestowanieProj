@@ -9,6 +9,10 @@ namespace BazaFilmowa.Entities
 {
     public class ApiDbContext : DbContext
     {
+        public ApiDbContext(DbContextOptions options) 
+        {
+            // konstruktor potrzebny dla utworzenia inmemorydb dla testów
+        }
         public DbSet<User> Users { get; set; }
 
         public DbSet<Role> Roles { get; set; }
@@ -81,30 +85,22 @@ namespace BazaFilmowa.Entities
                  });
 
 
-
         }
 
         private SqlConnectionStringBuilder GetSqlConnectionString()
         {
-            // Equivalent connection string:
-            // "User Id=<DB_USER>;Password=<DB_PASS>;Server=<INSTANCE_HOST>;Database=<DB_NAME>;"
+
             var connectionString = new SqlConnectionStringBuilder()
             {
-                // Note: Saving credentials in environment variables is convenient, but not
-                // secure - consider a more secure solution such as
-                // Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
-                // keep secrets safe.
-                DataSource = "34.118.117.72", // e.g. '127.0.0.1'
-                // Set Host to 'cloudsql' when deploying to App Engine Flexible environment
-                UserID = "api",         // e.g. 'my-db-user'
-                Password = "aaabbbccc",       // e.g. 'my-db-password'
-                InitialCatalog = "BazaFilmowaDb", // e.g. 'my-database'
 
-                // The Cloud SQL proxy provides encryption between the proxy and instance
+                DataSource = "34.118.117.72",
+                UserID = "api",
+                Password = "aaabbbccc",
+                InitialCatalog = "BazaFilmowaDb",
+
                 Encrypt = false,
             };
             connectionString.Pooling = true;
-            // Specify additional properties here.
             return connectionString;
         }
     }

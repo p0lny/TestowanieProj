@@ -1,5 +1,6 @@
 ﻿using BazaFilmowa.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,15 @@ namespace BazaFilmowa
         {
             if (_dbContext.Database.CanConnect())
             {
+                if (_dbContext.Database.IsRelational()) // potrzebne do odpalenia testów, bo używamy tam inmemorydb a nie relacyjna db
+                {
+                    var pendingMigrations = _dbContext.Database.GetPendingMigrations();
+
+                    if (pendingMigrations != null && pendingMigrations.Any())
+                    {
+                        _dbContext.Database.Migrate();
+                    }
+                }
                 if (!_dbContext.Roles.Any())
                 {
                     var roles = GetRoles();
@@ -36,7 +46,7 @@ namespace BazaFilmowa
                     _dbContext.SaveChanges();
                 }
 
-                
+
 
                 if (!_dbContext.Movies.Any())
                 {

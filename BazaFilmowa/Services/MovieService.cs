@@ -56,9 +56,13 @@ namespace BazaFilmowa.Services
 
         public void EditMovie(EditMovieDto editMovieDto)
         {
-            var updatedMovie = _mapper.Map<Movie>(editMovieDto);
-            var updatedMovieDetails = _mapper.Map<MovieDetails>(editMovieDto);
 
+            var movie = _dbContext.Movies.FirstOrDefault(e => e.Id == editMovieDto.Id);
+            var movieDetails = _dbContext.MovieDetails.FirstOrDefault(e => e.MovieId == editMovieDto.Id);
+
+            var updatedMovie = _mapper.Map<EditMovieDto,Movie>(editMovieDto, movie);
+            var updatedMovieDetails = _mapper.Map<EditMovieDto,MovieDetails>(editMovieDto,movieDetails);
+           
             _dbContext.Movies.Update(updatedMovie);
             _dbContext.MovieDetails.Update(updatedMovieDetails);
             _dbContext.SaveChanges();

@@ -130,5 +130,4 @@ C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilm
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\ref\BazaFilmowa.dll
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.pdb
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.genruntimeconfig.cache
-C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.CopyComplete
 C:\Users\okuch\Desktop\proj\TestowanieProj\BazaFilmowa\obj\Debug\net5.0\BazaFilmowa.csproj.AssemblyReference.cache
