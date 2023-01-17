@@ -45,6 +45,7 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    width: 58vw;
 }
 
 .info {

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f0eeba5-7173-46ca-b6ad-74f9344f7267" name="Changes" comment="-">
+    <list default="true" id="9f0eeba5-7173-46ca-b6ad-74f9344f7267" name="Changes" comment="added:&#10;- delete/edit movie controls,&#10;- comments (display, add, delete),&#10;- fixed issue with sign-out functionality not working properly">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/API/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/API/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/MainPage/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/MainPage/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/AccountControls/AccountControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/AccountControls/AccountControls.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/EditMovie/EditMovie.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/EditMovie/EditMovie.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +61,8 @@
       <option name="presentableId" value="Default" />
       <updated>1673826410943</updated>
       <workItem from="1673826414916" duration="806000" />
-      <workItem from="1673906594453" duration="7676000" />
+      <workItem from="1673906594453" duration="7820000" />
+      <workItem from="1673914980781" duration="1937000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1673826545171</created>
@@ -71,7 +71,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673826545171</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added:&#10;- delete/edit movie controls,&#10;- comments (display, add, delete),&#10;- fixed issue with sign-out functionality not working properly">
+      <created>1673914449503</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673914449503</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -90,6 +97,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="-" />
+    <MESSAGE value="added:&#10;- delete/edit movie controls,&#10;- comments (display, add, delete),&#10;- fixed issue with sign-out functionality not working properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="added:&#10;- delete/edit movie controls,&#10;- comments (display, add, delete),&#10;- fixed issue with sign-out functionality not working properly" />
   </component>
 </project>

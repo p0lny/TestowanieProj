@@ -1,7 +1,7 @@
 import "./EditMovie.css"
 import {useEffect, useState} from "react";
 import {verifyUser} from "../Utils/Functions/VerifyUser";
-import {editMovie, getMovieDetails} from "../API/Server";
+import {editMovie, getMovie, getMovieDetails} from "../API/Server";
 import {useHistory} from "react-router-dom";
 
 export default function EditMovie() {
@@ -12,6 +12,7 @@ export default function EditMovie() {
 
     const [title, setTitle] = useState("")
     const [duration, setDuration] = useState(0)
+    const [description, setDescription] = useState("")
     const [premiereDate, setPremiereDate] = useState("")
     const [productionLocation, setProductionLocation] = useState("")
     const [language, setLanguage] = useState("")
@@ -25,17 +26,21 @@ export default function EditMovie() {
         if (window.localStorage.getItem("role") === "Admin" && verifyUser()) {
             setDisplayPage(true)
         }
-        getMovieDetails(movieId).then((response) => {
-            const movie = response
-            console.log(response)
+        getMovie(movieId).then((response) => {
+            const movie = response.data
             setTitle(movie.title)
-            setDuration(movie.duration)
-            setPremiereDate(movie.premiereDate)
+            setUrlPoster(movie.urlPoster)
+            setUrlTrailer(movie.urlTrailer)
+        })
+        getMovieDetails(movieId).then((response) => {
+            const movie = response.data
+            console.log(response)
+            // setDuration(movie.duration)
+            setDescription(movie.description)
+            setPremiereDate(new Date(movie.premiereDate).toLocaleDateString("en-CA"))
             setProductionLocation(movie.productionLocation)
             setLanguage(movie.language)
             setAgeRestriction(movie.ageRestriction)
-            setUrlPoster(movie.urlPoster)
-            setUrlTrailer(movie.urlTrailer)
         }).catch((error) => {
             console.warn(error)
         })
@@ -79,11 +84,19 @@ export default function EditMovie() {
                                        setTitle(e.target.value)
                                    }}/>
                         </div>
+                        {/*TODO*/}
+                        {/*<div className="mb-3">*/}
+                        {/*    <label htmlFor="exampleInput2" className="form-label">Movie duration</label>*/}
+                        {/*    <input required={true} value={duration} type="number" className="form-control" id="exampleInput2"*/}
+                        {/*           onChange={(e) => {*/}
+                        {/*               setDuration(parseInt(e.target.value))*/}
+                        {/*           }}/>*/}
+                        {/*</div>*/}
                         <div className="mb-3">
-                            <label htmlFor="exampleInput2" className="form-label">Movie duration</label>
-                            <input required={true} value={duration} type="number" className="form-control" id="exampleInput2"
+                            <label htmlFor="description" className="form-label">Description</label>
+                            <textarea required={true} value={description} className="form-control" id="description" style={{height: "24vh"}}
                                    onChange={(e) => {
-                                       setDuration(parseInt(e.target.value))
+                                       setDescription(e.target.value)
                                    }}/>
                         </div>
                         <div className="mb-3">

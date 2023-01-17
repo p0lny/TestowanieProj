@@ -53,6 +53,10 @@ export const getMovieDetails = async (id) => {
     return await axios.get(`${endpoint}/api/movie/details/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
+export const getMovie = async (id) => {
+    return await axios.get(`${endpoint}/api/movie/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
+}
+
 export const deleteMovie = async (id) => {
     return await axios.delete(`${endpoint}/api/movie/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }

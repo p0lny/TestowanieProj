@@ -1,13 +1,14 @@
 import './MovieDetails.css'
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {deleteMovie, getMovieDetails} from "../../API/Server";
+import {deleteMovie, getMovie, getMovieDetails} from "../../API/Server";
 import Comments from "../Comments/Comments";
 
 export default function MovieDetails() {
 
     const history = useHistory()
 
+    const [movieInfo, setMovieInfo] = useState(null)
     const [movieDetails, setMovieDetails] = useState(null)
 
     // ID of the movie to fetch (use <movieDetails.movieId> later!)
@@ -15,9 +16,11 @@ export default function MovieDetails() {
 
     // Get movie details on page load
     useEffect(() => {
-        getMovieDetails(state - 1).then((response) => {
-            console.log(response)
-            setMovieDetails(response)
+        getMovie(state).then((response) => {
+            setMovieInfo(response.data)
+        })
+        getMovieDetails(state).then((response) => {
+            setMovieDetails(response.data)
         })
     }, [])
 
@@ -65,24 +68,24 @@ export default function MovieDetails() {
                     <div className={"movieDetailsContainer border"}>
                         <div className={"info"}>
                             <div className={"leftPanel"}>
-                                <img src={movieDetails.urlPoster} className={"movieDetailsImage"}
-                                     alt={movieDetails.title}/>
-                                <h5 className={"text-secondary"}>Duration: {movieDetails.duration}</h5>
+                                <img src={movieInfo.urlPoster} className={"movieDetailsImage"}
+                                     alt={movieInfo.title}/>
+                                {/*<h5 className={"text-secondary"}>Duration: {movieDetails.duration}</h5>*/}
                                 <h5 className={"text-secondary"}>Production
                                     location: {movieDetails.productionLocation}</h5>
                                 <h5 className={"text-secondary"}>Language: {movieDetails.language}</h5>
                                 <h5 className={"text-secondary"}>Age restriction: {movieDetails.ageRestriction}</h5>
                             </div>
                             <div className={"textArea"}>
-                                <h2>{movieDetails.title}</h2>
-                                <p>{movieDetails.content}</p>
+                                <h2>{movieInfo.title}</h2>
+                                <p>{movieDetails.description}</p>
                             </div>
                         </div>
                         <div className={"trailerSection"}>
                             {
-                                (movieDetails.urlTrailer && movieDetails.urlTrailer !== "" &&
+                                (movieInfo.urlTrailer && movieInfo.urlTrailer !== "" &&
                                     <iframe className={"videoPlayer"}
-                                            src={movieDetails.urlTrailer}>
+                                            src={movieInfo.urlTrailer}>
                                     </iframe>)
                                 ||
                                 <h5 className={"text-secondary"}>No trailer available</h5>
