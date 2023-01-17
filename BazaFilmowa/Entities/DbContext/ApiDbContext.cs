@@ -15,7 +15,6 @@ namespace BazaFilmowa.Entities
 
         public DbSet<RegistrationToken> RegistrationTokens { get; set; }
 
-
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieDetails> MovieDetails { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -41,7 +40,14 @@ namespace BazaFilmowa.Entities
             }
 
             modelBuilder.Entity<MovieDetails>()
-                .HasKey(e => e.MovieId);
+                 .Property(e => e.Id)
+                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Movie>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+
 
             modelBuilder.Entity<Rating>()
                 .HasKey(e => e.MovieId);
@@ -70,7 +76,7 @@ namespace BazaFilmowa.Entities
             modelBuilder.Entity<MovieWatched>()
                  .HasKey(e => new
                  {
-                    e.MovieId,
+                     e.MovieId,
                      e.UserId
                  });
 

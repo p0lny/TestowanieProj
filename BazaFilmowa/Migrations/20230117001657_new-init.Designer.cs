@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BazaFilmowa.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230115211428_full-version-v1")]
-    partial class fullversionv1
+    [Migration("20230117001657_new-init")]
+    partial class newinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,7 +93,7 @@ namespace BazaFilmowa.Migrations
 
             modelBuilder.Entity("BazaFilmowa.Entities.MovieDetails", b =>
                 {
-                    b.Property<int>("MovieId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -110,13 +110,19 @@ namespace BazaFilmowa.Migrations
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PremiereDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductionLocation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MovieId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId")
+                        .IsUnique();
 
                     b.ToTable("MovieDetails");
                 });
@@ -276,7 +282,8 @@ namespace BazaFilmowa.Migrations
 
                     b.HasKey("MovieId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserMovieRatings");
                 });
@@ -284,13 +291,13 @@ namespace BazaFilmowa.Migrations
             modelBuilder.Entity("BazaFilmowa.Entities.Comment", b =>
                 {
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -298,6 +305,17 @@ namespace BazaFilmowa.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BazaFilmowa.Entities.MovieDetails", b =>
+                {
+                    b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
+                        .WithOne("MovieDetails")
+                        .HasForeignKey("BazaFilmowa.Entities.MovieDetails", "MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("BazaFilmowa.Entities.MovieGenre", b =>
@@ -309,7 +327,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -328,7 +346,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("MoviesToBeWatched")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -347,7 +365,7 @@ namespace BazaFilmowa.Migrations
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("MoviesWatched")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -393,14 +411,14 @@ namespace BazaFilmowa.Migrations
             modelBuilder.Entity("BazaFilmowa.Entities.UserMovieRating", b =>
                 {
                     b.HasOne("BazaFilmowa.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("UserMovieRatings")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BazaFilmowa.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("UserMovieRating")
+                        .HasForeignKey("BazaFilmowa.Entities.UserMovieRating", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -414,6 +432,17 @@ namespace BazaFilmowa.Migrations
                     b.Navigation("MovieGenres");
                 });
 
+            modelBuilder.Entity("BazaFilmowa.Entities.Movie", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("MovieDetails");
+
+                    b.Navigation("MovieGenres");
+
+                    b.Navigation("UserMovieRatings");
+                });
+
             modelBuilder.Entity("BazaFilmowa.Entities.Role", b =>
                 {
                     b.Navigation("Users");
@@ -421,7 +450,15 @@ namespace BazaFilmowa.Migrations
 
             modelBuilder.Entity("BazaFilmowa.Entities.User", b =>
                 {
+                    b.Navigation("Comments");
+
+                    b.Navigation("MoviesToBeWatched");
+
+                    b.Navigation("MoviesWatched");
+
                     b.Navigation("RegistrationToken");
+
+                    b.Navigation("UserMovieRating");
                 });
 #pragma warning restore 612, 618
         }

@@ -70,6 +70,7 @@ namespace BazaFilmowa
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            //todo: add validator
             services.AddScoped<IMovieService, MovieService>();
             services.AddAutoMapper(this.GetType().Assembly);
 

@@ -91,8 +91,10 @@ namespace BazaFilmowa.Migrations
 
             modelBuilder.Entity("BazaFilmowa.Entities.MovieDetails", b =>
                 {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<short>("AgeRestriction")
                         .HasColumnType("smallint");
@@ -106,13 +108,19 @@ namespace BazaFilmowa.Migrations
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PremiereDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductionLocation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MovieId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId")
+                        .IsUnique();
 
                     b.ToTable("MovieDetails");
                 });

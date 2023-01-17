@@ -7,6 +7,7 @@ namespace BazaFilmowa.Entities
 {
     public class MovieDetails
     {
+        public int Id { get; set; }
         public int MovieId { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime PremiereDate { get; set; }
