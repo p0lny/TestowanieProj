@@ -12,7 +12,6 @@ export default function MainPage() {
 
     // Go to movie details
     const handleCardClick = (cardId) => {
-        console.log("card has been clicked")
         history.push({
             pathname: `/movies/${cardId}`,
             state: cardId
@@ -42,7 +41,7 @@ export default function MainPage() {
                             imageAlt={item.title}
                             title={item.title}
                             key={key}
-                            onCardClick={() => handleCardClick(item.movieId)}
+                            onCardClick={() => handleCardClick(item.id)}
                         />
                     )
                 })

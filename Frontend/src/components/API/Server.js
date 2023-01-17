@@ -50,11 +50,11 @@ export const moderateComment = async (data) => {
 /** MOVIE REQUESTS **/
 
 export const getMovieDetails = async (id) => {
-    return await axios.get(`${endpoint}/api/movie/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
+    return await axios.get(`${endpoint}/api/movie/details/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const deleteMovie = async (id) => {
-    return await axios.delete(`${endpoint}/api/movie/${id}`)
+    return await axios.delete(`${endpoint}/api/movie/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const getMovies = async () => {
@@ -62,11 +62,11 @@ export const getMovies = async () => {
 }
 
 export const postMovie = async (data) => {
-    return await axios.post(`${endpoint}/api/movie`, data)
+    return await axios.post(`${endpoint}/api/movie`, data, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const editMovie = async (data) => {
-    return await axios.put(`${endpoint}/api/movie`, data)
+    return await axios.put(`${endpoint}/api/movie`, data, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 /** RATING REQUESTS **/

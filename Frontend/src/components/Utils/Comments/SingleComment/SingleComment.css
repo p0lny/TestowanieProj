@@ -1,0 +1,28 @@
+.singleComment {
+    width: 90%;
+    height: auto;
+    background-color: var(--bs-white);
+    padding: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 15px;
+}
+
+.commentHeader {
+    font-weight: bold;
+}
+
+.commentContent {
+    text-align: start;
+}
+
+.adminCommentControls {
+    width: 100%;
+    height: auto;
+    padding: 1vh;
+    border-radius: 15px;
+    background-color: var(--bs-light);
+    display: flex;
+    justify-content: flex-end;
+}

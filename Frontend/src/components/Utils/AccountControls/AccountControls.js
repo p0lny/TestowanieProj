@@ -39,6 +39,8 @@ export default function AccountControls() {
 
     const signOut = () => {
         window.localStorage.removeItem("token")
+        window.localStorage.removeItem("username")
+        window.localStorage.removeItem("role")
         history.push("/")
         window.location.reload()
     }

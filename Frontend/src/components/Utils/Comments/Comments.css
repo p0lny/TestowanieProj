@@ -1,0 +1,13 @@
+.commentsContainer {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2vh;
+    padding: 1vh 1vw;
+    border-radius: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--bs-light);
+    width: 85vw;
+    gap: 1vw;
+}

@@ -2,6 +2,7 @@ import './MovieDetails.css'
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {deleteMovie, getMovieDetails} from "../../API/Server";
+import Comments from "../Comments/Comments";
 
 export default function MovieDetails() {
 
@@ -15,6 +16,7 @@ export default function MovieDetails() {
     // Get movie details on page load
     useEffect(() => {
         getMovieDetails(state - 1).then((response) => {
+            console.log(response)
             setMovieDetails(response)
         })
     }, [])
@@ -40,16 +42,23 @@ export default function MovieDetails() {
 
     return (
         <>
-            <div className={"controlPanel border"}>
-                <button className={"btn btn-primary"}
-                        onClick={handleEdit}>
-                    Edit movie
-                </button>
-                <button className={"btn btn-danger"}
-                        onClick={handleDelete}>
-                    Delete movie
-                </button>
-            </div>
+            {
+                (window.localStorage.getItem("role") === "Admin" ||
+                window.localStorage.getItem("role") === "Moderator") &&
+                <div className={"controlPanel border"}>
+                    <button className={"btn btn-primary"}
+                            onClick={handleEdit}>
+                        Edit movie
+                    </button>
+                    {
+                        window.localStorage.getItem("role") === "Admin" &&
+                        <button className={"btn btn-danger"}
+                                onClick={handleDelete}>
+                            Delete movie
+                        </button>
+                    }
+                </div>
+            }
             <div className={'mainContainer'}>
                 {
                     movieDetails &&
@@ -82,6 +91,8 @@ export default function MovieDetails() {
                     </div>
                 }
             </div>
+
+            <Comments movieId={5}/>
         </>
     )
 }

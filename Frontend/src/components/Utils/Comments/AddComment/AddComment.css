@@ -1,0 +1,29 @@
+.createCommentContainer {
+    width: 90%;
+    height: auto;
+    background-color: var(--bs-white);
+    padding: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 15px;
+}
+
+.commentTextArea {
+    width: 70vw;
+    height: 12vh;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.addCommentButtons {
+    margin-top: 1vh;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentCheckbox {
+    display: flex;
+    justify-items: baseline;
+}
