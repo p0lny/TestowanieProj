@@ -3,6 +3,28 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    justify-content: center;
+    align-items: center;
     padding-top: 2rem;
+    flex-direction: column;
+}
+
+.postsContainer {
+    width: 90vw;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 2vw
+}
+
+.myPagination {
+    width: 30vw;
+    height: 6vh;
+}
+
+.perPageConfig {
+    display: flex;
+    gap: 1vh;
 }

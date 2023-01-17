@@ -3,18 +3,10 @@ import {useState} from "react";
 import './Searchbar.css'
 import {getMovies} from '../../API/Server.js'
 
-export default function Searchbar ({type, id, name, width}) {
-
-    const [phrase, setPhrase] = useState("")
+export default function Searchbar ({type, id, name, width, searchPhrase, setSearchPhrase}) {
 
     const onSearchbarInput = (e) => {
-        setPhrase(e.target.value)
-    }
-
-    const search = () => {
-        // api call for search movies
-        console.log(`search movies by phrase: '${phrase}'`)
-        getMovies(phrase)
+        setSearchPhrase(e.target.value)
     }
 
     return (
@@ -25,13 +17,10 @@ export default function Searchbar ({type, id, name, width}) {
             <input type={type}
                    id={'searchbar_' + id}
                    name={name}
-                   value={phrase}
+                   value={searchPhrase}
                    placeholder={"Search for..."}
                    onChange={onSearchbarInput}
                    className={"form-control searchInput"}
-            />
-            <button className={"btn btn-outline-primary bi-search searchBtn"}
-                    onClick={search}
             />
         </div>
     )

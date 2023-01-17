@@ -9,14 +9,17 @@ import MovieDetails from "./components/Utils/MovieDetails/MovieDetails";
 import ConfirmRegistration from "./components/ConfirmRegistration/ConfirmRegistration";
 import AddMovie from "./components/AddMovie/AddMovie";
 import EditMovie from "./components/EditMovie/EditMovie";
+import {useState} from "react";
 
 function App() {
+
+    const [searchPhrase, setSearchPhrase] = useState("")
 
     return (
         <div className="App">
             <div id={"content"}>
                 <BrowserRouter>
-                    <Header/>
+                    <Header setSearchPhrase={setSearchPhrase} searchPhrase={searchPhrase}/>
                     <Switch>
                         <Route path={"/signup"}>
                             <RegisterPage/>
@@ -37,7 +40,7 @@ function App() {
                             <ConfirmRegistration/>
                         </Route>
                         <Route path={"/"}>
-                            <MainPage/>
+                            <MainPage searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase}/>
                         </Route>
                     </Switch>
                     <Footer/>

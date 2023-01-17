@@ -1,6 +1,6 @@
 .cardComponent {
     cursor: pointer;
-    max-width: 540px;
+    width: 25vw;
 }
 
 .cardImage {

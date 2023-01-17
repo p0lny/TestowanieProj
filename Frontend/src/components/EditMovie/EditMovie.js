@@ -48,7 +48,9 @@ export default function EditMovie() {
 
     const sendMovie = () => {
         const dataPack = {
+            id: parseInt(movieId),
             title,
+            description,
             duration,
             premiereDate: new Date(premiereDate).toJSON(),
             productionLocation,
