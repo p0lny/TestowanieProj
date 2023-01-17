@@ -62,16 +62,25 @@ namespace BazaFilmowa
             services.AddControllers()
                 .AddFluentValidation();
 
+            //workflow services
             services.AddDbContext<ApiDbContext>();
             services.AddScoped<ApiDbSeeder>();
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            //services
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
-            //todo: add validator
             services.AddScoped<IMovieService, MovieService>();
+
+            //validators
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            services.AddScoped<IValidator<AddCommentDto>, AddCommentDtoValidator>();
+            services.AddScoped<IValidator<EditMovieDto>, EditMovieDtoValidator>();
+            services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
+            services.AddScoped<IValidator<AddMovieDto>, AddMovieDtoValidator>();
+            services.AddScoped<IValidator<PagingQuery>, PagingQueryValidator>();
             services.AddAutoMapper(this.GetType().Assembly);
 
             services.AddSwaggerGen(c =>

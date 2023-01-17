@@ -78,11 +78,23 @@ namespace BazaFilmowa.Services
             return movieDetailsDto;
         }
 
-        public IEnumerable<MovieDto> GetMovies()
+        public PagedResult<MovieDto> GetMovies(PagingQuery pagingQuery, string searchPhrase)
         {
-            var movies = _dbContext.Movies.ToList();
+            var movies =
+                _dbContext.Movies
+                .Where(e => searchPhrase == null || e.Title.ToLower().Contains(searchPhrase.ToLower()));
+
+            var moviesPaged =
+                movies.Skip(pagingQuery.PageSize * (pagingQuery.PageNumber - 1))
+                .Take(pagingQuery.PageSize);
+
+            var moviesCount = moviesPaged.Count();
+
             var moviesDtos = _mapper.Map<List<MovieDto>>(movies);
-            return moviesDtos;
+
+            var result = new PagedResult<MovieDto>(moviesDtos, moviesCount, pagingQuery.PageSize, pagingQuery.PageNumber);
+
+            return result;
         }
     }
 }

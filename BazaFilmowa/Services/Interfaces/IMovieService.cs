@@ -8,7 +8,7 @@ namespace BazaFilmowa.Services
     {
         MovieDto GetMovieById(int id);
         void AddMovie(AddMovieDto addMovieDto);
-        IEnumerable<MovieDto> GetMovies();
+        PagedResult<MovieDto> GetMovies(PagingQuery pagingQuery, string searchPhrase);
         void DeleteMovie(int id);
         void EditMovie(EditMovieDto editMovieDto);
         MovieDetailsDto GetMovieDetailsById(int id);
