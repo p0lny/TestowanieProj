@@ -2,9 +2,6 @@ import axios from "axios";
 
 import {config} from "../../config";
 
-// mock data
-import {movies} from "./mockdata";
-
 const endpoint = "https://" + config.server + ":" + config.port
 
 /** ACCOUNT REQUESTS **/
@@ -62,7 +59,7 @@ export const deleteMovie = async (id) => {
 }
 
 export const getMovies = async (data) => {
-    return await axios.get(`${endpoint}/api/movie`, {params: {PageSize: data.PageSize, PageNumber: data.PageNumber}}, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
+    return await axios.get(`${endpoint}/api/movie`, {params: {PageSize: data.PageSize, PageNumber: data.PageNumber, searchPhrase: data.searchPhrase}}, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const postMovie = async (data) => {

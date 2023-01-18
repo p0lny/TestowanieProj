@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 
+// check if username and role entries are the same as in jwt token
 export const verifyUser = () => {
     let username = window.localStorage.getItem("username")
     let role = window.localStorage.getItem("role")

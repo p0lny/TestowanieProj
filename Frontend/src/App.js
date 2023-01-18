@@ -1,4 +1,5 @@
 import './App.css';
+import React from "react";
 import Header from "./components/Utils/Header/Header";
 import Footer from "./components/Utils/Footer/Footer";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -10,6 +11,7 @@ import ConfirmRegistration from "./components/ConfirmRegistration/ConfirmRegistr
 import AddMovie from "./components/AddMovie/AddMovie";
 import EditMovie from "./components/EditMovie/EditMovie";
 import {useState} from "react";
+import {verifyUser} from "./components/Utils/Functions/VerifyUser";
 
 function App() {
 
@@ -28,19 +30,28 @@ function App() {
                             <LoginPage/>
                         </Route>
                         <Route path={"/movies/:id"}>
-                            <MovieDetails/>
+                            {
+                                (window.localStorage.getItem("token") && verifyUser() && <MovieDetails/>) ||
+                                <LoginPage/>
+                            }
                         </Route>
                         <Route path={"/movie/add"}>
-                            <AddMovie/>
+                            {
+                                (window.localStorage.getItem("token") && verifyUser() && <AddMovie/>) ||
+                                <LoginPage/>
+                            }
                         </Route>
                         <Route path={"/movie/edit/:id"}>
-                            <EditMovie/>
+                            {
+                                (window.localStorage.getItem("token") && verifyUser() && <EditMovie/>) ||
+                                <LoginPage/>
+                            }
+                        </Route>
+                        <Route path={"/"}>
+                            <MainPage searchPhrase={searchPhrase}/>
                         </Route>
                         <Route path={"/activate/:id"}>
                             <ConfirmRegistration/>
-                        </Route>
-                        <Route path={"/"}>
-                            <MainPage searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase}/>
                         </Route>
                     </Switch>
                     <Footer/>

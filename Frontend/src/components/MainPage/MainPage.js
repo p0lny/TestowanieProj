@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {getMovies} from "../API/Server";
 import {useEffect, useState} from "react";
 
-export default function MainPage({searchPhrase, setSearchPhrase}) {
+export default function MainPage({searchPhrase}) {
 
     const history = useHistory()
 
@@ -49,7 +49,7 @@ export default function MainPage({searchPhrase, setSearchPhrase}) {
         }
     }
 
-    // Get all movies on page load
+    // Get all movies on page load and on dependency change
     useEffect(() => {
         if (loading === false) {
             const dataPack = {
@@ -65,8 +65,8 @@ export default function MainPage({searchPhrase, setSearchPhrase}) {
         }
     }, [PageNumber, PageSize, loading])
 
+    let timeout
     useEffect(() => {
-        let timeout
         clearTimeout(timeout)
         setLoading(true)
         timeout = setTimeout(() => {

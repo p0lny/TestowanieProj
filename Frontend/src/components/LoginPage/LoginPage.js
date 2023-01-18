@@ -14,7 +14,6 @@ export default function LoginPage() {
 
     const redirect = () => {
         // redirect to main page
-        console.log("redirect to main page")
         history.push('/')
         window.location.reload()
     }

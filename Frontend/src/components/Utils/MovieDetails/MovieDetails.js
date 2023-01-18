@@ -30,12 +30,8 @@ export default function MovieDetails() {
     }
 
     const handleDelete = () => {
-        console.log(movieDetails.movieId)
         deleteMovie(movieDetails.movieId).then((response) => {
-            if (response.response.status !== 200) {
-                console.warn("FAILED TO DELETE")
-                return
-            }
+            console.log(response)
             history.push("/")
             window.location.reload()
         }).catch((error) => {
@@ -64,7 +60,7 @@ export default function MovieDetails() {
             }
             <div className={'mainContainer'}>
                 {
-                    movieDetails &&
+                    movieDetails && movieInfo &&
                     <div className={"movieDetailsContainer border"}>
                         <div className={"info"}>
                             <div className={"leftPanel"}>
