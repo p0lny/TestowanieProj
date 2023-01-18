@@ -25,12 +25,12 @@ namespace BazaFilmowa
             {
                 if (_dbContext.Database.IsRelational()) // potrzebne do odpalenia testów, bo używamy tam inmemorydb a nie relacyjna db
                 {
-                    var pendingMigrations = _dbContext.Database.GetPendingMigrations();
+                    //var pendingMigrations = _dbContext.Database.GetPendingMigrations();
 
-                    if (pendingMigrations != null && pendingMigrations.Any())
-                    {
-                        _dbContext.Database.Migrate();
-                    }
+                    //if (pendingMigrations != null && pendingMigrations.Any())
+                    //{
+                    //    _dbContext.Database.Migrate();
+                    //}
                 }
                 if (!_dbContext.Roles.Any())
                 {
@@ -87,6 +87,8 @@ namespace BazaFilmowa
 
             return movies;
         }
+
+
 
         private IEnumerable<Role> GetRoles()
         {

@@ -9,7 +9,7 @@ namespace BazaFilmowa.Entities
 {
     public class ApiDbContext : DbContext
     {
-        public ApiDbContext(DbContextOptions options) 
+        public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
             // konstruktor potrzebny dla utworzenia inmemorydb dla testów
         }
@@ -29,12 +29,6 @@ namespace BazaFilmowa.Entities
         public DbSet<MovieToBeWatched> MovieToBeWatched { get; set; }
         public DbSet<MovieWatched> MovieWatched { get; set; }
 
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(GetSqlConnectionString().ToString());
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -87,7 +81,7 @@ namespace BazaFilmowa.Entities
 
         }
 
-        private SqlConnectionStringBuilder GetSqlConnectionString()
+        public static SqlConnectionStringBuilder GetSqlConnectionString()
         {
 
             var connectionString = new SqlConnectionStringBuilder()

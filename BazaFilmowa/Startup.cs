@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -63,7 +64,8 @@ namespace BazaFilmowa
                 .AddFluentValidation();
 
             //workflow services
-            services.AddDbContext<ApiDbContext>();
+            //services.AddDbContext<ApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApiDbContext")));
+            services.AddDbContext<ApiDbContext>(options => options.UseSqlServer(ApiDbContext.GetSqlConnectionString().ToString()));
             services.AddScoped<ApiDbSeeder>();
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
