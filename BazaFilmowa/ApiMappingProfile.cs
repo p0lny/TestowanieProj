@@ -27,6 +27,7 @@ namespace BazaFilmowa
             //comments
             CreateMap<Comment, CommentDto>();
             CreateMap<AddCommentDto, Comment>()
+                .ForMember(e => e.CommentText, m => m.MapFrom(s => s.Comment))
                 .ForMember(e => e.PostedAt, m => m.MapFrom(s => DateTime.Now))
                 .ForMember(e => e.SpoilerAlert, m => m.MapFrom(s => false))
                 .ForMember(e => e.Moderated, m => m.MapFrom(s => true));
