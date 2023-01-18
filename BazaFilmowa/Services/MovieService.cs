@@ -52,6 +52,8 @@ namespace BazaFilmowa.Services
             {
                 _dbContext.Remove(movie);
             }
+
+            _dbContext.SaveChanges();
         }
 
         public void EditMovie(EditMovieDto editMovieDto)

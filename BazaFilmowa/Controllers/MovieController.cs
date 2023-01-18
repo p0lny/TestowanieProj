@@ -68,7 +68,7 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(403)]
         [SwaggerResponse(404)]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete([FromQuery] int id)
+        public ActionResult Delete([FromRoute] int id)
         {
             _movieService.DeleteMovie(id);
             return Ok();

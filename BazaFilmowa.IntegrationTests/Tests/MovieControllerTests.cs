@@ -103,7 +103,7 @@ namespace BazaFilmowa.IntegrationTests
         [InlineData(RoleForAuthorizationEnum.Admin)]
         [InlineData(RoleForAuthorizationEnum.Moderator)]
 
-        public async Task AddMovie_WithValidModel_ReturnsCreatedStatus(RoleForAuthorizationEnum role)
+        public async Task AddMovie_ForAdminOrModerator_WithValidModel_ReturnsCreatedStatus(RoleForAuthorizationEnum role)
         {
 
             //arrange
@@ -133,7 +133,7 @@ namespace BazaFilmowa.IntegrationTests
         [Theory]
         [InlineData(RoleForAuthorizationEnum.Admin)]
         [InlineData(RoleForAuthorizationEnum.Moderator)]
-        public async Task AddMovie_WithInalidModel_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        public async Task AddMovie_ForAdminOrModerator_WithInalidModel_ReturnsBadRequest(RoleForAuthorizationEnum role)
         {
             //arrange
             var client = GetFactory(role).CreateClient();
@@ -161,14 +161,14 @@ namespace BazaFilmowa.IntegrationTests
         [Theory]
         [InlineData(RoleForAuthorizationEnum.Admin)]
         [InlineData(RoleForAuthorizationEnum.Moderator)]
-        public async Task AddMovie_ForExistingMovie_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        public async Task AddMovie_ForAdminOrModerator_ForExistingMovie_ReturnsBadRequest(RoleForAuthorizationEnum role)
         {
             Assert.True(false);
 
         }
 
         [Fact]
-        public async Task AddMovie_ForRoleUser_ReturnsForbidden()
+        public async Task AddMovie_ForUser_ReturnsForbidden()
         {
 
             //arrange
@@ -194,6 +194,8 @@ namespace BazaFilmowa.IntegrationTests
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Forbidden);
             //response.Headers.Location.Should().NotBeNull();
         }
+
+
 
         //editmovie
         [Fact]
