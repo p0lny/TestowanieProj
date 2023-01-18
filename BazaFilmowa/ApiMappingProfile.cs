@@ -22,10 +22,11 @@ namespace BazaFilmowa
                 .ForMember(e => e.Id, m => m.Ignore());
             CreateMap<EditMovieDto, MovieDetails>()
                 .ForMember(e => e.Id, m => m.Ignore())
-                .ForMember(e => e.MovieId,m=>m.Ignore());
+                .ForMember(e => e.MovieId, m => m.Ignore());
 
             //comments
-            CreateMap<Comment, CommentDto>();
+            CreateMap<Comment, CommentDto>()
+                .ForMember(e => e.UserName, m => m.MapFrom(s => $"{s.User.Name} {s.User.Surname}"));
             CreateMap<AddCommentDto, Comment>()
                 .ForMember(e => e.CommentText, m => m.MapFrom(s => s.Comment))
                 .ForMember(e => e.PostedAt, m => m.MapFrom(s => DateTime.Now))

@@ -65,7 +65,6 @@ namespace BazaFilmowa.Services
 
                 if (result == PasswordVerificationResult.Success)
                 {
-
                     if (!user.IsActivated)
                     {
                         throw new Exception(); //todo

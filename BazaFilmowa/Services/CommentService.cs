@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BazaFilmowa.Entities;
 using BazaFilmowa.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,10 @@ namespace BazaFilmowa.Services
 
         public IEnumerable<CommentDto> GetCommentsForMovie(int movieId)
         {
-            var comments = _dbContext.Comments.Where(e => e.MovieId == movieId);
+            var comments = _dbContext.Comments
+                .Where(e => e.MovieId == movieId)
+                .Include(e => e.User);
+
             var commentsDto = _mapper.Map<List<CommentDto>>(comments);
 
             return commentsDto;

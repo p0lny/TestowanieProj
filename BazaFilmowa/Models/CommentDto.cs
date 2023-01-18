@@ -9,7 +9,7 @@ namespace BazaFilmowa.Models
     {
         public int Id { get; set; }
         public int MovieId { get; set; }
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public string CommentText { get; set; }
         public bool SpoilerAlert { get; set; }
         public DateTime PostedAt { get; set; }

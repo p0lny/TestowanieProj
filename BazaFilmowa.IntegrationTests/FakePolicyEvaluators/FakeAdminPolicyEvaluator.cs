@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BazaFilmowa.IntegrationTests
 {
-    public class FakePolicyEvaluator : IPolicyEvaluator
+    public class FakeAdminPolicyEvaluator : IPolicyEvaluator
     {
         public Task<AuthenticateResult> AuthenticateAsync(AuthorizationPolicy policy, HttpContext context)
         {

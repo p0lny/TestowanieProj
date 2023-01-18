@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BazaFilmowa.IntegrationTests
 {
-    public class FakeUserFilter : IAsyncActionFilter
+    public class FakeModeratorFilter : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
