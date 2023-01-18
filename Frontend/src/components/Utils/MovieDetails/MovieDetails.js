@@ -70,15 +70,15 @@ export default function MovieDetails() {
                             <div className={"leftPanel"}>
                                 <img src={movieInfo.urlPoster} className={"movieDetailsImage"}
                                      alt={movieInfo.title}/>
-                                {/*<h5 className={"text-secondary"}>Duration: {movieDetails.duration}</h5>*/}
-                                <h5 className={"text-secondary"}>Production
-                                    location: {movieDetails.productionLocation}</h5>
-                                <h5 className={"text-secondary"}>Language: {movieDetails.language}</h5>
-                                <h5 className={"text-secondary"}>Age restriction: {movieDetails.ageRestriction}</h5>
+                                {/*<h6 className={"text-secondary"}>Duration: {movieDetails.duration}</h6>*/}
+                                <h6 className={"text-secondary"}>Production
+                                    location: {movieDetails.productionLocation}</h6>
+                                <h6 className={"text-secondary"}>Language: {movieDetails.language}</h6>
+                                <h6 className={"text-secondary"}>Age restriction: {movieDetails.ageRestriction}</h6>
                             </div>
                             <div className={"textArea"}>
                                 <h2>{movieInfo.title}</h2>
-                                <p>{movieDetails.description}</p>
+                                <p className={"desc ms-4"}>{movieDetails.description}</p>
                             </div>
                         </div>
                         <div className={"trailerSection"}>
@@ -95,7 +95,10 @@ export default function MovieDetails() {
                 }
             </div>
 
-            <Comments movieId={5}/>
+            {
+                movieInfo &&
+                <Comments movieId={movieInfo.id}/>
+            }
         </>
     )
 }

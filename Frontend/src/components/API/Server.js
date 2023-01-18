@@ -24,27 +24,27 @@ export const activateAccount = async (token) => {
 /** COMMENT REQUESTS **/
 
 export const getComment = async (movieId) => {
-    return await axios.get(`${endpoint}/api/comment/${movieId}`)
+    return await axios.get(`${endpoint}/api/comments`, {params: {movieId, PageNumber: 1, PageSize: 50}, headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const getCommentHistory = async (id) => {
-    return await axios.get(`${endpoint}/api/comment/history/${id}`)
+    return await axios.get(`${endpoint}/api/comments/history/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
-export const sendComment = async (data) => {
-    return await axios.post(`${endpoint}/api/comment`, data)
+export const postComment = async (data) => {
+    return await axios.post(`${endpoint}/api/comments`, data, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const deleteComment = async (id) => {
-    return await axios.delete(`${endpoint}/api/comment/${id}`)
+    return await axios.delete(`${endpoint}/api/comments/${id}`, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const editComment = async (data) => {
-    return await axios.put(`${endpoint}/api/comment/edit`, data)
+    return await axios.put(`${endpoint}/api/comments/edit`, data, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 export const moderateComment = async (data) => {
-    return await axios.put(`${endpoint}/api/comment/moderate`, data)
+    return await axios.put(`${endpoint}/api/comments/moderate`, data, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
 }
 
 /** MOVIE REQUESTS **/

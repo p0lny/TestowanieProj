@@ -20,16 +20,16 @@ export default function SingleComment({movieId, userId, commentText, postedAt, e
         setDisplay({display: "none"})
     }
 
-    return (
-        <div className={`singleComment border`} style={display}>
-            <p className={"commentHeader text-secondary"}>Posted: {postedAt} by {userId}:</p>
-            <p className={"commentContent"}>{commentText}</p>
-            {
-                window.localStorage.getItem("role") === "Admin" && verifyUser() &&
-                <div className={"adminCommentControls border"}>
-                    <button className={"btn btn-danger"} onClick={handleDeleteComment}>Delete comment</button>
-                </div>
-            }
-        </div>
+    return (0
+        // <div className={`singleComment border`} style={display}>
+        //     <p className={"commentHeader text-secondary"}>Posted: {postedAt} by {userId}:</p>
+        //     <p className={"commentContent"}>{commentText}</p>
+        //     {
+        //         window.localStorage.getItem("role") === "Admin" && verifyUser() &&
+        //         <div className={"adminCommentControls border"}>
+        //             <button className={"btn btn-danger"} onClick={handleDeleteComment}>Delete comment</button>
+        //         </div>
+        //     }
+        // </div>
     )
 }

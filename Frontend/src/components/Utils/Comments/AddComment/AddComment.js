@@ -1,5 +1,6 @@
 import "./AddComment.css"
 import {useState} from "react";
+import {postComment} from "../../../API/Server";
 
 export default function AddComment({movieId}) {
 
@@ -12,7 +13,12 @@ export default function AddComment({movieId}) {
             comment,
             recommendsMovie
         }
-        console.log(dataPack)
+        postComment(dataPack).then((response) => {
+            console.log(response)
+            window.location.reload()
+        }).catch((error) => {
+            console.warn(error)
+        })
     }
 
     return (

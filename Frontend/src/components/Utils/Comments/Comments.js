@@ -9,7 +9,7 @@ export default function Comments({movieId}) {
         <>
             <div className={"commentsContainer border"}>
                 <AddComment movieId={movieId}/>
-                <SingleComment userId={1} commentText={lorem} postedAt={"today"}/>
+                <SingleComment movieId={movieId} userId={1} commentText={lorem} postedAt={"today"}/>
             </div>
         </>
     )
