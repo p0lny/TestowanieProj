@@ -1,4 +1,4 @@
-﻿ using BazaFilmowa.Entities;
+﻿using BazaFilmowa.Entities;
 using BazaFilmowa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,15 +17,15 @@ namespace BazaFilmowa.Services
     {
         private readonly ApiDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly AuthenticationSettings _authenticationSettings;
+        private readonly IJwtTokenProviderService _jwtTokenProviderService;
         private readonly IEmailService _emailService;
 
-        public AccountService(ApiDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, IEmailService emailService)
+        public AccountService(ApiDbContext dbContext, IPasswordHasher<User> passwordHasher, IEmailService emailService, IJwtTokenProviderService jwtTokenProviderService)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
-            _authenticationSettings = authenticationSettings;
             _emailService = emailService;
+            _jwtTokenProviderService = jwtTokenProviderService;
         }
 
         public void ActivateUser(string token)
@@ -70,27 +70,9 @@ namespace BazaFilmowa.Services
                         throw new Exception(); //todo
                     }
 
-                    var claims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Name, $"{user.Name} {user.Surname}"),
-                        new Claim(ClaimTypes.Role, $"{user.Role.Name}"),
-                    };
+                    var token = _jwtTokenProviderService.GetJwtForUser(user);
 
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
-                    var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
-
-                    var token = new JwtSecurityToken(
-                                    _authenticationSettings.JwtIssuer,
-                                    _authenticationSettings.JwtIssuer,
-                                    claims,
-                                    expires: expires,
-                                    signingCredentials: cred);
-
-                    var tokenHandler = new JwtSecurityTokenHandler();
-
-                    return tokenHandler.WriteToken(token);
+                    return token;
 
                 }
             }

@@ -58,8 +58,8 @@ namespace BazaFilmowa.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Add([FromBody] AddMovieDto addMovieDto)
         {
-            _movieService.AddMovie(addMovieDto);
-            return Ok();
+            var id = _movieService.AddMovie(addMovieDto);
+            return Created($"/api/movie/{id}", null);
         }
 
         [HttpDelete("{id}")]

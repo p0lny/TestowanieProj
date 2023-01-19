@@ -20,7 +20,7 @@ namespace BazaFilmowa.Services
             _mapper = mapper;
         }
 
-        public void AddMovie(AddMovieDto addMovieDto)
+        public int AddMovie(AddMovieDto addMovieDto)
         {
             var movie = _mapper.Map<Movie>(addMovieDto);
             var movieDetails = _mapper.Map<MovieDetails>(addMovieDto);
@@ -31,6 +31,8 @@ namespace BazaFilmowa.Services
             movieDetails.MovieId = movie.Id;
             _dbContext.MovieDetails.Add(movieDetails);
             _dbContext.SaveChanges();
+
+            return movie.Id;
         }
 
         public void DeleteMovie(int id)

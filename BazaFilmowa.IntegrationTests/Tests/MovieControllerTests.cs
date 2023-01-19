@@ -13,49 +13,31 @@ using BazaFilmowa.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using BazaFilmowa.Services;
+using System.Net.Http.Headers;
 
 namespace BazaFilmowa.IntegrationTests
 {
     public class MovieControllerTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        private HttpClient _client;
         WebApplicationFactory<Startup> _factory;
+
 
         public MovieControllerTests(WebApplicationFactory<Startup> factory)
         {
-            _factory = factory;
-            _client = GetFactory().CreateClient();
-
-        }
-
-        private WebApplicationFactory<Startup> GetFactory(RoleForAuthorizationEnum role = RoleForAuthorizationEnum.None)
-        {
-            return _factory.WithWebHostBuilder(builder =>
+            _factory = factory.WithWebHostBuilder(builder =>
             {
                 builder.ConfigureServices(services =>
                 {
                     var dbContextOptions = services.SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<ApiDbContext>));
                     services.Remove(dbContextOptions);
 
-                    switch (role)
-                    {
-                        case RoleForAuthorizationEnum.User:
-                            services.AddSingleton<IPolicyEvaluator, FakeUserPolicyEvaluator>();
-                            services.AddMvc(option => option.Filters.Add(new FakeUserFilter()));
-                            break;
-
-                        case RoleForAuthorizationEnum.Moderator:
-                            services.AddSingleton<IPolicyEvaluator, FakeModeratorPolicyEvaluator>();
-                            services.AddMvc(option => option.Filters.Add(new FakeModeratorFilter()));
-                            break;
-
-                        case RoleForAuthorizationEnum.Admin:
-                            services.AddSingleton<IPolicyEvaluator, FakeAdminPolicyEvaluator>();
-                            services.AddMvc(option => option.Filters.Add(new FakeAdminFilter()));
-                            break;
-                    }
-
-                    services.AddDbContext<ApiDbContext>(options => options.UseInMemoryDatabase("TestsDb"));
+                    services.AddDbContext<ApiDbContext>(options => options.UseInMemoryDatabase("TestDb"));
                 });
 
             });
@@ -68,9 +50,9 @@ namespace BazaFilmowa.IntegrationTests
         public async Task GetMovies_WithQueryParams_ReturnsStatusOk(string queryParams)
         {
             //arrange
-
+            var client = _factory.CreateClient();
             //act
-            var response = await _client.GetAsync("/api/movie?" + queryParams);
+            var response = await client.GetAsync("/api/movie?" + queryParams);
 
             //assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
@@ -89,9 +71,10 @@ namespace BazaFilmowa.IntegrationTests
         public async Task GetMovies_WithInvalidQueryParams_ReturnsBadRequest(string queryParams)
         {
             //arrange
+            var client = _factory.CreateClient();
 
             //act
-            var response = await _client.GetAsync("/api/movie?" + queryParams);
+            var response = await client.GetAsync("/api/movie?" + queryParams);
 
             //assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
@@ -100,22 +83,31 @@ namespace BazaFilmowa.IntegrationTests
 
         //addmovie
         [Theory]
-        [InlineData(RoleForAuthorizationEnum.Admin)]
-        [InlineData(RoleForAuthorizationEnum.Moderator)]
+        [InlineData("Admin")]
+        [InlineData("Moderator")]
 
-        public async Task AddMovie_ForAdminOrModerator_WithValidModel_ReturnsCreatedStatus(RoleForAuthorizationEnum role)
+        public async Task AddMovie_ForAdminOrModerator_WithValidModel_ReturnsStatusCreated(string role)
         {
-
             //arrange
 
-            var client = GetFactory(role).CreateClient();
+            var client = _factory.CreateClient();
 
             var model = new AddMovieDto()
             {
-                Title = "Tytuł testowy8888",
+                Title = Guid.NewGuid().ToString(),
                 UrlPoster = "test-poster",
                 UrlTrailer = "test-trailer"
             };
+
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var tokenService = scope.ServiceProvider.GetService<IJwtTokenProviderService>();
+
+
+            var user = FakeUserProvider.GeUserForRole(role);
+            var token = tokenService.GetJwtForUser(user);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var json = JsonConvert.SerializeObject(model);
             var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
@@ -126,17 +118,19 @@ namespace BazaFilmowa.IntegrationTests
 
             //assert
 
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-            //response.Headers.Location.Should().NotBeNull();
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+            response.Headers.Location.Should().NotBeNull();
         }
 
         [Theory]
-        [InlineData(RoleForAuthorizationEnum.Admin)]
-        [InlineData(RoleForAuthorizationEnum.Moderator)]
-        public async Task AddMovie_ForAdminOrModerator_WithInalidModel_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        [InlineData("Admin")]
+        [InlineData("Moderator")]
+
+        public async Task AddMovie_ForAdminOrModerator_WithInalidModel_ReturnsBadRequest(string role)
         {
             //arrange
-            var client = GetFactory(role).CreateClient();
+
+            var client = _factory.CreateClient();
 
             var model = new AddMovieDto()
             {
@@ -144,6 +138,16 @@ namespace BazaFilmowa.IntegrationTests
                 UrlPoster = "test-poster",
                 UrlTrailer = "test-trailer"
             };
+
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var tokenService = scope.ServiceProvider.GetService<IJwtTokenProviderService>();
+
+
+            var user = FakeUserProvider.GeUserForRole(role);
+            var token = tokenService.GetJwtForUser(user);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var json = JsonConvert.SerializeObject(model);
             var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
@@ -159,21 +163,56 @@ namespace BazaFilmowa.IntegrationTests
 
 
         [Theory]
-        [InlineData(RoleForAuthorizationEnum.Admin)]
-        [InlineData(RoleForAuthorizationEnum.Moderator)]
-        public async Task AddMovie_ForAdminOrModerator_ForExistingMovie_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        [InlineData("Admin")]
+        [InlineData("Moderator")]
+        public async Task AddMovie_ForAdminOrModerator_ForExistingMovieTitle_ReturnsBadRequest(string role)
         {
-            Assert.True(false);
+            //arrange
+            var client = _factory.CreateClient();
+            var title = "tytuł testowy";
 
+            var movie = new Movie()
+            {
+                Title = title
+            };
+
+            var movieDto = new MovieDto()
+            {
+                Title = title,
+                UrlPoster = "xxx",
+                UrlTrailer = "xxx"
+            };
+
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetService<ApiDbContext>();
+            var tokenService = scope.ServiceProvider.GetService<IJwtTokenProviderService>();
+
+
+            var user = FakeUserProvider.GeUserForRole(role);
+            var token = tokenService.GetJwtForUser(user);
+
+            dbContext.Movies.Add(movie);
+            dbContext.SaveChanges();
+
+            var json = JsonConvert.SerializeObject(movieDto);
+            var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
+            //act
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.PostAsync("/api/movie", httpContent);
+
+            //assert
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
 
         [Fact]
         public async Task AddMovie_ForUser_ReturnsForbidden()
         {
-
             //arrange
 
-            var client = GetFactory(RoleForAuthorizationEnum.Admin).CreateClient();
+            var client = _factory.CreateClient();
 
             var model = new AddMovieDto()
             {
@@ -181,6 +220,16 @@ namespace BazaFilmowa.IntegrationTests
                 UrlPoster = "test-poster",
                 UrlTrailer = "test-trailer"
             };
+
+            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var tokenService = scope.ServiceProvider.GetService<IJwtTokenProviderService>();
+
+
+            var user = FakeUserProvider.GeUserForRole("User");
+            var token = tokenService.GetJwtForUser(user);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var json = JsonConvert.SerializeObject(model);
             var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
@@ -192,77 +241,108 @@ namespace BazaFilmowa.IntegrationTests
             //assert
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.Forbidden);
-            //response.Headers.Location.Should().NotBeNull();
         }
 
 
-
-        //editmovie
         [Fact]
-        public async Task EditMovie_WithValidModel_ReturnsStatusOk()
+        public async Task AddMovie_ForNoUser_ReturnsUnauthorized()
         {
-            Assert.True(true);
+            //arrange
 
-        }
-        [Fact]
-        public async Task EditMovie_WithInvalidModel_ReturnsBadRequest()
-        {
-            Assert.True(true);
+            var client = _factory.CreateClient();
 
-        }
-        [Fact]
-        public async Task EditMovie_ForNonExistingMovie_ReturnsBadRequest()
-        {
-            Assert.True(true);
-        }
+            var model = new AddMovieDto()
+            {
+                Title = "Tytuł testowy8888",
+                UrlPoster = "test-poster",
+                UrlTrailer = "test-trailer"
+            };
 
-        //deletemovie
+            var json = JsonConvert.SerializeObject(model);
+            var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
 
+            //act
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(33)]
-        [InlineData(int.MaxValue)]
-        public async Task DeleteMovie_ForValidId_ReturnsOk(int id)
-        {
-            Assert.True(true);
+            var response = await client.PostAsync("/api/movie", httpContent);
 
+            //assert
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
         }
 
-        [Theory]
-        [InlineData(int.MinValue)]
-        [InlineData(null)]
-        [InlineData(2.5)]
-        [InlineData('x')]
-        [InlineData(-1)]
-        public async Task DeleteMovie_ForInvalidId_RetursBadRequest(int id)
-        {
-            Assert.True(true);
-        }
+        ////editmovie
+        //[Theory]
+        //[InlineData(RoleForAuthorizationEnum.Admin)]
+        //[InlineData(RoleForAuthorizationEnum.Moderator)]
+        //public async Task EditMovie_WithValidModel_ReturnsStatusOk(RoleForAuthorizationEnum role)
+        //{
+        //    Assert.True(true);
+
+        //}
+        //[Theory]
+        //[InlineData(RoleForAuthorizationEnum.Admin)]
+        //[InlineData(RoleForAuthorizationEnum.Moderator)]
+        //public async Task EditMovie_WithInvalidModel_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        //{
+        //    Assert.True(true);
+
+        //}
+        //[Theory]
+        //[InlineData(RoleForAuthorizationEnum.Admin)]
+        //[InlineData(RoleForAuthorizationEnum.Moderator)]
+        //public async Task EditMovie_ForNonExistingMovie_ReturnsBadRequest(RoleForAuthorizationEnum role)
+        //{
+        //    Assert.True(true);
+        //}
 
 
-        //getmovie
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(33)]
-        [InlineData(int.MaxValue)]
-        public async Task GetMovie_ForValidId_ReturnsOk(int id)
-        {
+        ////deletemovie
 
-        }
 
-        [Theory]
-        [InlineData(int.MinValue)]
-        [InlineData(null)]
-        [InlineData(2.5)]
-        [InlineData('x')]
-        [InlineData(-1)]
-        public async Task GetMovie_ForInvalidId_ReturnsBadRequest(int id)
-        {
-            Assert.True(true);
+        //[Theory]
+        //[InlineData(0)]
+        //[InlineData(33)]
+        //[InlineData(int.MaxValue)]
+        //public async Task DeleteMovie_ForValidId_ReturnsOk(int id)
+        //{
+        //    Assert.True(true);
 
-        }
+        //}
 
+        //[Theory]
+        //[InlineData(int.MinValue)]
+        //[InlineData(null)]
+        //[InlineData(2.5)]
+        //[InlineData('x')]
+        //[InlineData(-1)]
+        //public async Task DeleteMovie_ForInvalidId_RetursBadRequest(int id)
+        //{
+        //    Assert.True(true);
+        //}
+
+
+        ////getmovie
+
+        //[Theory]
+        //[InlineData(0)]
+        //[InlineData(33)]
+        //[InlineData(int.MaxValue)]
+        //public async Task GetMovie_ForValidId_ReturnsOk(int id)
+        //{
+
+        //}
+
+        //[Theory]
+        //[InlineData(int.MinValue)]
+        //[InlineData(null)]
+        //[InlineData(2.5)]
+        //[InlineData('x')]
+        //[InlineData(-1)]
+        //public async Task GetMovie_ForInvalidId_ReturnsBadRequest(int id)
+        //{
+        //    Assert.True(true);
+
+        //}
     }
 }

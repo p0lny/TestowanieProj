@@ -54,7 +54,7 @@ namespace BazaFilmowa.Controllers
         [SwaggerResponse(401)]
         [SwaggerResponse(403)]
         [SwaggerResponse(404)]
-        public ActionResult Delete([FromQuery] int id)
+        public ActionResult Delete([FromRoute] int id)
         {
             throw new NotImplementedException();
         }

@@ -7,7 +7,7 @@ namespace BazaFilmowa.Services
     public interface IMovieService
     {
         MovieDto GetMovieById(int id);
-        void AddMovie(AddMovieDto addMovieDto);
+        int AddMovie(AddMovieDto addMovieDto);
         PagedResult<MovieDto> GetMovies(PagingQuery pagingQuery, string searchPhrase);
         void DeleteMovie(int id);
         void EditMovie(EditMovieDto editMovieDto);
