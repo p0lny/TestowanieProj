@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f0eeba5-7173-46ca-b6ad-74f9344f7267" name="Changes" comment="added sending comments,&#10;TODO show comments">
+    <list default="true" id="9f0eeba5-7173-46ca-b6ad-74f9344f7267" name="Changes" comment="added comments display&#10;TODO delete comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/API/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/API/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/LoginPage/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/LoginPage/LoginPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/MainPage/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/MainPage/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/Comments/Comments.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/Comments/Comments.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/Comments/SingleComment/SingleComment.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/Comments/SingleComment/SingleComment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/Functions/VerifyUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/Functions/VerifyUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Utils/MovieDetails/MovieDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/AddMovie/AddMovie.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +62,8 @@
       <workItem from="1673906594453" duration="7820000" />
       <workItem from="1673914980781" duration="1980000" />
       <workItem from="1673957065269" duration="10712000" />
-      <workItem from="1674072413484" duration="5801000" />
+      <workItem from="1674072413484" duration="6009000" />
+      <workItem from="1674156940683" duration="1542000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1673826545171</created>
@@ -107,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674001495204</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added comments display&#10;TODO delete comments">
+      <created>1674084126529</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1674084126529</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +130,7 @@
     <MESSAGE value="fixed displaying movie information" />
     <MESSAGE value="added pagination" />
     <MESSAGE value="added sending comments,&#10;TODO show comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sending comments,&#10;TODO show comments" />
+    <MESSAGE value="added comments display&#10;TODO delete comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="added comments display&#10;TODO delete comments" />
   </component>
 </project>

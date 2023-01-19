@@ -45,11 +45,7 @@ export default function AddMovie() {
             urlTrailer
         }
         if (verifyUser()) {
-            postMovie(dataPack).then((response) => {
-                if(response.status !== 200) {
-                    console.warn(response)
-                    return
-                }
+            postMovie(dataPack).then(() => {
                 history.push("/")
                 window.location.reload()
             }).catch((error) => {
